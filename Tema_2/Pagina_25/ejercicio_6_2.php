@@ -1,39 +1,14 @@
 <?php
-
+$operacion = null;
+$operacionPalabra = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $operacion = $_POST["operacion"];
     $a = trim($_POST["a"]);
     $b = trim($_POST["b"]);
-    $operacionPalabra = "";
     $crearOperacion = elegirOperacion($operacion);
 
     $resultado = $crearOperacion($a, $b);
-    if ($operacion != 5 && $b != 0) {
-        switch ($operacion) {
-            case 1:
-                $operacionPalabra = "suma";
-                break;
-            case 2:
-                $operacionPalabra = "resta";
-                break;
-            case 3:
-                $operacionPalabra = "multiplicar";
-                break;
-            case 4:
-                $operacionPalabra = "dividir";
-                break;
-        }
-        print_r("<p>El resultado de " . $operacionPalabra . " " . $a . " y " . $b . " es " . $resultado . "</p>");
-    }
 }
-
-
-
-
-
-
-
-
 
 function elegirOperacion($operacion)
 {
@@ -74,7 +49,7 @@ function elegirOperacion($operacion)
     <form method="post">
         <label for="operacion">Selecciona una operacion</label>
         <select name="operacion" id="operacion">
-            <option value="0" disabled selected>operacion</option>
+            <option value="0" disabled selected>Elige una operacion</option>
             <option value="1">sumar</option>
             <option value="2">restar</option>
             <option value="3">multiplicar</option>
@@ -82,11 +57,31 @@ function elegirOperacion($operacion)
         </select>
         <br>
         <label for="a">Introduce el primer numero: </label>
-        <input type="number" name="a" id="">
+        <input type="number" name="a" id="" require>
         <br>
         <label for="a">Introduce el segundo numero: </label>
-        <input type="number" name="b" id="">
+        <input type="number" name="b" id="" require><br>
         <input type="submit" value="Calcular">
+        <p>
+            <?php
+            if ($operacion != null) {
+                switch ($operacion) {
+                    case 1:
+                        $operacionPalabra = "suma";
+                        break;
+                    case 2:
+                        $operacionPalabra = "resta";
+                        break;
+                    case 3:
+                        $operacionPalabra = "multiplicar";
+                        break;
+                    case 4:
+                        $operacionPalabra = "dividir";
+                        break;
+                }
+                print_r("El resultado de " . $operacionPalabra . " " . $a . " y " . $b . " es " . $resultado );
+            }
+            ?></p>
 
     </form>
 </body>
