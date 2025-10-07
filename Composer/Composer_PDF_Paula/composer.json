@@ -1,0 +1,17 @@
+{
+    "name": "victor/dockercomposer",
+    "autoload": {
+        "psr-4": {
+            "Victor\\Dockercomposer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "victor"
+        }
+    ],
+
+    "scripts": {"start": "php -S 0.0.0.0:8080 -t public"},
+    
+    "require": {}
+}
