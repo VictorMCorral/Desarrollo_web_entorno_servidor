@@ -1,5 +1,5 @@
 <?php 
-    namespace Victor\Composer_2\Routes;
+    namespace Victor\Composer2\Routes;
 
     use Victor\Composer2\Controllers\HomeController;
 

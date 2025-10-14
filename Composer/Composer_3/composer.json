@@ -1,0 +1,14 @@
+{
+    "name": "victor/composer3",
+    "autoload": {
+        "psr-4": {
+            "victor\\composer3\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "victor"
+        }
+    ],
+    "require": {}
+}

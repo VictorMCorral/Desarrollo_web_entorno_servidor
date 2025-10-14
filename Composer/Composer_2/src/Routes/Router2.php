@@ -22,7 +22,7 @@
             error_log("path: " . $path);
             if (isset($this->routes[$path])){
                 $route = $this->routes[$path];
-                $controllerClass = '\\Victor\\Composer\\Controllers\\' . $route['controller'];
+                $controllerClass = '\\Victor\\Composer2\\Controllers\\' . $route['controller'];
                 $action = $route['action'];
 
 
@@ -35,7 +35,7 @@
                     $controller = new $controllerClass();
 
                     //Lo meto para controlar que el metodo es /procesar
-                   /* if ($path === '/procesar' && $method === 'POST') {
+                    /* if ($path === '/procesar' && $method === 'POST') {
                         $controller->$action($_POST);
                     } else {
                         $controller->$action();

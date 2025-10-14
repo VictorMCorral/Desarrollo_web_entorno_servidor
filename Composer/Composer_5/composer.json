@@ -1,0 +1,14 @@
+{
+    "name": "victor/listanombres",
+    "autoload": {
+        "psr-4": {
+            "victor\\Listanombres\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "victor"
+        }
+    ],
+    "require": {}
+}
