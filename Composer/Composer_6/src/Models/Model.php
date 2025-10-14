@@ -30,26 +30,7 @@ class Model{
 
 
     public function crearUsuario($usuarioNuevo){
-        $usuarioNuevo = trim($usuarioNuevo) . "\n";
+        $usuarioNuevo = trim($usuarioNuevo);
         file_put_contents($this->filepath, $usuarioNuevo, FILE_APPEND);
-    }
-
-
-
-    public function editUser($user, $pos){
-        $lineas = file($this->filepath);
-        $lineas[$pos] = $user . "\n";
-
-        file_put_contents($this->filepath, "");
-
-        foreach($lineas as $linea){
-            file_put_contents($this->filepath, $linea, FILE_APPEND);
-        }
-    }
-
-
-    public function getUser($index){
-        $lineas = file($this ->filepath);
-        return $lineas[$index];
     }
 }

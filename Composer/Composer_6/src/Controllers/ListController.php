@@ -46,30 +46,4 @@ class ListController{
 
         require __DIR__ . "/../Views/despedidaUsuario.php";
     }
-
-
-
-    public function editUser($data){
-        if (isset($data['id'])) {
-            $usuarioEditar = $data['id'];
-            $usuario = $this->model->getUser($usuarioEditar);
-            require __DIR__ . "/../Views/modificarUsuario.php";
-        }
-    }
-
-    public function guardarUsuarioEditado($data){   
-        if (isset($data['user']) && !empty($data['user'])){
-            if (isset($data['pos'])){
-                $user = $data['user'];
-                $pos = $data['pos'];
-                $this ->model ->editUser($user, $pos);
-                require __DIR__ . "/../Views/usuarioModificado.php";
-                
-            } else {
-                echo "No encuentra pos";
-            }
-        } else {
-            echo "No encuentra user";
-        }
-    }
 }

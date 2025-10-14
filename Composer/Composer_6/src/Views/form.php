@@ -13,10 +13,7 @@
         <ul>
             <?php 
             for ($i = 0; $i < $cantidad; $i++) {
-            echo "<li>$lineas[$i]
-                    <br> <a href=\"/delUser?id=$i\">Eliminar</a>    <a href=\"/editUser?id=$i\">Editar</a>
-                </li>";
-            echo "<br>";
+            echo "<li>$lineas[$i]<a href=\"/delUser?id=$i\">Eliminar</a></li>";
             } 
             ?>
         </ul>

@@ -12,8 +12,6 @@
             $this ->routes["/"] = ["controller" => "ListController", "action" => "index"];
             $this ->routes["/crearUsuario"] = ["controller" => "ListController", "action" => "crearUsuario"];
             $this ->routes["/delUser"] = ["controller" => "ListController", "action" => "delUser"];
-            $this ->routes["/editUser"] = ["controller" => "ListController", "action" => "editUser"];
-            $this ->routes["/saveUser"] = ["controller" => "ListController", "action" => "guardarUsuarioEditado"];
         }
 
         public function peticion(){
