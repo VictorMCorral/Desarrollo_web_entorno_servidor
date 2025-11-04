@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prueba</title>
+</head>
+
+<body>
+    <h1>Soy la cabecera </h1>
+    <hr>
+    <?php require $contenido ?>
+    <hr>
+    <footer>
+        <h4>Soy el footer</h4>
+    </footer>
+</body>
+
+</html>

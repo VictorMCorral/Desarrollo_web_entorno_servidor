@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Personajes {% endblock %}
+
+{% block content %} 
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for villano in villanos %} 
+            {% include '/partials/card.html.twig' with { 'villano': villano} %}
+        {% endfor %}
+    </div>
+{% endblock %}
+

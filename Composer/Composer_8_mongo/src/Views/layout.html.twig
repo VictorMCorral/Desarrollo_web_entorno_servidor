@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header>
+        <h1>{{ title }}</h1>
+    </header>
+    <hr>
+    <main>
+        <ul>
+            {% for producto in productos %}
+                <li>{{ producto.nombre }} - {{ producto.precio }} €</li>
+            {% endfor %}
+        </ul>
+    <hr>
+            <ul>
+            {% for dep in departamentos %} 
+                <li>{{ dep.dept_no }}  -- {{ dep.dnombre }} -- {{ dep.loc }}
+                    <a href=\"/eliminarDept?dept_no={{ dep.dept_no }}\">Eliminar</a> 
+                    <a href=\"/modificarDept?dept_no={{ dep.dept_no }}\">Modificar</a>
+                
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+    <hr>
+    <footer>
+        {{ footer }}
+    </footer>
+
+</body>
+</html>

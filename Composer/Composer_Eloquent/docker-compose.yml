@@ -1,0 +1,42 @@
+services:
+  app:
+    image: public.ecr.aws/docker/library/php:8.3-cli
+    container_name: php-app
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - db
+    networks:
+      - app-network
+    # ¡ESTA LÍNEA ES CLAVE!
+    command: sh -c "apt-get update && apt-get install -y default-libmysqlclient-dev curl && docker-php-ext-install pdo pdo_mysql && php -S 0.0.0.0:8000 -t public"
+    ports:
+      - "8000:8000"
+
+  db:
+    image: public.ecr.aws/docker/library/mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: myapp
+      MYSQL_USER: developer
+      MYSQL_PASSWORD: devpassword
+      #docker-compose exec db mysql -u developer -pdevpassword -D myapp
+    ports:
+    #Portatil
+      - "3306:3306"
+    #Sobremesa
+    #  - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge

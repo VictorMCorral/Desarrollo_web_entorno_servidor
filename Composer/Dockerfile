@@ -1,4 +1,3 @@
-# Dockerfile
 FROM php:8.3-cli
 
 # Instalar dependencias del sistema necesarias
@@ -6,7 +5,8 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     libzip-dev \
-    && docker-php-ext-install zip
+    default-libmysqlclient-dev \
+    && docker-php-ext-install zip pdo pdo_mysql
 
 # Descargar e instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

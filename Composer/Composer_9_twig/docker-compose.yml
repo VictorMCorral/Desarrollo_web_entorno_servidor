@@ -1,0 +1,35 @@
+services:
+  app:
+    build: .
+    container_name: php-app-twig
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  db:
+    image: mongo:6.0
+    container_name: mongodb-db-twig
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: developer
+      MONGO_INITDB_ROOT_PASSWORD: devpassword
+      MONGO_INITDB_DATABASE: myapp
+    ports:
+      - "27017:27017"
+    volumes:
+      - db_data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge
