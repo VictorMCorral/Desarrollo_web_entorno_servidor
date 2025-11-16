@@ -1,0 +1,17 @@
+{
+    "name": "victor/sesiones",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "victor"
+        }
+    ],
+    "require": {
+        "mongodb/mongodb": "^2.1",
+        "twig/twig": "^3.22"
+    }
+}
