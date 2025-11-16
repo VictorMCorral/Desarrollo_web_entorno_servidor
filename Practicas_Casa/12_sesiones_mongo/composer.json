@@ -13,5 +13,8 @@
     "require": {
         "mongodb/mongodb": "^2.1",
         "twig/twig": "^3.22"
+    },
+    "scripts": {
+        "start": "php -S localhost:8000 -t public"
     }
 }

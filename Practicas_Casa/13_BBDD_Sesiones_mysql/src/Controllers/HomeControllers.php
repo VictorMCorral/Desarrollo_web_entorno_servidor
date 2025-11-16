@@ -3,10 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\Database;
-
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
-
 
 class HomeControllers
 {
@@ -18,21 +16,15 @@ class HomeControllers
 
         $loader = new FilesystemLoader(__DIR__ . "/../Views");
         $this->twig = new Environment($loader);
-        $this->mi_model = new Database();
 
-        if(session_status()==PHP_SESSION_NONE){
+        if(session_status() == PHP_SESSION_NONE){
             session_start();
         }
 
-        if(isset($_SESSION["usuario"])){
-            $sesionValida = true;
-            $usuario= $_SESSION["usuario"];
-        } else {
-            $sesionValida= false;
-            $usuario = "";
-        }
+        $sesionValida = isset($_SESSION["usuario"]);
+        $usuario = $sesionValida ? $_SESSION["usuario"] : "";
 
-        $this ->twig->addGlobal("variableTwig",[
+        $this->twig->addGlobal("variableTwig", [
             "sesionValida" => $sesionValida,
             "usuario" => $usuario
         ]);
@@ -46,29 +38,24 @@ class HomeControllers
         echo $this->twig->render("form.html.twig");
     }
 
-    public function logDat($data){
-        $usuario = strtolower($data["usuario"]);
-        $usuarioSanitizado = filter_input(INPUT_POST, "usuario",FILTER_SANITIZE_SPECIAL_CHARS);
+    public function logDat(){
+        $usuarioSanitizado = filter_input(INPUT_POST, "usuario", FILTER_SANITIZE_SPECIAL_CHARS);
         $passSanitizada = filter_input(INPUT_POST, "pass", FILTER_SANITIZE_SPECIAL_CHARS);
 
+        $usuarioObj = $this->mi_model->getUserByName($usuarioSanitizado);
 
-        $usuarios = $this->mi_model->loadUser($usuarioSanitizado);
+        if($usuarioObj && password_verify($passSanitizada, $usuarioObj->password)) {
+            $_SESSION["usuario"] = $usuarioSanitizado;
+            $producto = $_SESSION["producto"] ?? "";
 
-        if ($usuarioSanitizado == $usuarios["usuario"] && password_verify($passSanitizada, $usuarios["password"])) {
-            if(isset($_SESSION["producto"])){
-                $producto = $_SESSION["producto"];
-            } else {
-                $producto = "";
-            }
-
-            $this ->twig->addGlobal("variableTwig",[
+            $this->twig->addGlobal("variableTwig", [
                 "sesionValida" => true,
-                "usuario" => $usuario,
-                "producto" => $producto,
+                "usuario" => $usuarioSanitizado,
+                "producto" => $producto
             ]);
-            $_SESSION["usuario"] = $usuario;
+
             echo $this->twig->render("sucess.html.twig", [
-                "usuario" => $usuarios["usuario"]
+                "usuario" => $usuarioSanitizado
             ]);
         } else {
             echo $this->twig->render("nosucess.html.twig");
@@ -80,54 +67,47 @@ class HomeControllers
     }
 
     public function register2($data){
-
-        $usuarioSanitizado = filter_input(INPUT_POST, "usuario",FILTER_SANITIZE_SPECIAL_CHARS);
+        $usuarioSanitizado = filter_input(INPUT_POST, "usuario", FILTER_SANITIZE_SPECIAL_CHARS);
         $passSanitizada = filter_input(INPUT_POST, "pass", FILTER_SANITIZE_SPECIAL_CHARS);
         $hashedPass = password_hash($passSanitizada, PASSWORD_BCRYPT);
 
+        $this->mi_model->addUser($usuarioSanitizado, $hashedPass);
 
-        $this->mi_model->addOne($usuarioSanitizado, $hashedPass);
         echo $this->twig->render("sucess.html.twig", [
-            "usuario" => $data["usuario"]
+            "usuario" => $usuarioSanitizado
         ]);
     }
 
     public function logOut($data){
-        if(session_status() == PHP_SESSION_ACTIVE){
+        if(session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["usuario"])){
             $usuario = $_SESSION["usuario"];
             session_unset();
+            session_destroy();
 
-            $this ->twig->addGlobal("variableTwig",[
+            $this->twig->addGlobal("variableTwig", [
                 "sesionValida" => false,
                 "usuario" => $usuario
             ]);
 
             echo $this->twig->render("logout.html.twig", [
-                "usuario" => $data["usuario"]
+                "usuario" => $usuario
             ]);
         } else {
             echo $this->twig->render("home.html.twig");
         }
-
     }
 
     public function compra($data){
-        
-        if(isset($data["producto"])){
-            $producto = $data["producto"];
+        $producto = $data["producto"] ?? "";
+        if($producto) {
             $_SESSION["producto"] = $producto;
-        } else {
-            $producto = "";
         }
 
-        
-
-        $this ->twig->addGlobal("variableTwig",[
-            "sesionValida" => true,
-            "usuario" => $_SESSION["usuario"],
-            "producto" => $producto,
+        $this->twig->addGlobal("variableTwig", [
+            "sesionValida" => isset($_SESSION["usuario"]),
+            "usuario" => $_SESSION["usuario"] ?? "",
+            "producto" => $producto
         ]);
-
 
         echo $this->twig->render("compra.html.twig");
     }

@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS  usuarios(
+    id  INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    compra VARCHAR(255),
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO usuarios(username, password, compra) VALUES ("Victor", "aaa", "");

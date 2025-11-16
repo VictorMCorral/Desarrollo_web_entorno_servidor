@@ -5,3 +5,9 @@ CREATE TABLE IF NOT EXISTS  usuarios(
     compra VARCHAR(255),
     created_at timestamp DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS  php_sessions(
+    id VARCHAR(255) PRIMARY KEY,
+    data TEXT NOT NULL,
+    last_access INT(11) NOT NULL
+);

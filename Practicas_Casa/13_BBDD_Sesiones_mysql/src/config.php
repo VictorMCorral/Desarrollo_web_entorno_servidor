@@ -4,7 +4,7 @@
 
     use App\Services\MySQLSessionHandler;
 
-    $pdo = new PDO('mysql:host=localhost;dbname=proyecto;charset=utf8', "user", "userpass");
+    $pdo = new PDO('mysql:host=localhost;dbname=alumnos;charset=utf8', "root", "Noteolvides@01");
     $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if(session_status() === PHP_SESSION_NONE){

@@ -8,72 +8,40 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
 use Dotenv\Dotenv;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class HomeControllers
 {
-    private $twig;
-    private $mi_model;
+    private $database;
 
-    public function __construct(){
-        $dotenv = Dotenv::createImmutable(__DIR__ . "/../..");
-        $dotenv->load();
-        $host = $_ENV["DB_HOST"];
-        $database = $_ENV["DB_DATABASE"];
-        $username = $_ENV["DB_USERNAME"];
-        $password = $_ENV["DB_PASSWORD"];
-
-        $this->mi_model = new Database($host, $database, $username, $password);
-
-        $loader = new FilesystemLoader(__DIR__ . "/../Views");
-        $this->twig = new Environment($loader);
-        $this->mi_model = new Database();
-
-        if(session_status()==PHP_SESSION_NONE){
-            session_start();
-        }
-
-        if(isset($_SESSION["usuario"])){
-            $sesionValida = true;
-            $usuario= $_SESSION["usuario"];
-        } else {
-            $sesionValida= false;
-            $usuario = "";
-        }
-
-        $this ->twig->addGlobal("variableTwig",[
-            "sesionValida" => $sesionValida,
-            "usuario" => $usuario
-        ]);
+    public function __construct()
+    {
+        $this->database = new Database();
     }
 
-    public function index(){
-        $this->mi_model->loadUser();
-        echo $this->twig->render("home.html.twig");
+    public function getAll(){
+        http_response_code(200);
+        echo json_encode(["mensaje" => "Listado de todos los departamentos"]);
     }
 
-    public function log(){
-        echo $this->twig->render("form.html.twig");
+    public function getId($id){
+        http_response_code(200);
+        echo json_encode(["mensaje" => "Mostrando departamento con ID: $id"]);
     }
 
-    public function logDat(){
-
+    public function create(){
+        http_response_code(201);
+        echo json_encode(["mensaje" => "Departamento creado exitosamente"]);
     }
 
-    public function register(){
-        echo $this->twig->render("register.html.twig");
+    public function update($id){
+        http_response_code(200);
+        echo json_encode(["mensaje" => "Departamento con ID $id actualizado exitosamente"]);
     }
 
-    public function register2(){
-
+    public function delete($id){
+        http_response_code(200);
+        echo json_encode(["mensaje" => "Departamento con ID $id eliminado exitosamente"]);
     }
-
-    public function logOut(){
-
-    }
-
-
-
-
-
-
 }
