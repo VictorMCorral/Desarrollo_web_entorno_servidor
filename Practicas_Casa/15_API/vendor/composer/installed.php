@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'victo/15_api',
+        'name' => 'victor/app',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
         'reference' => '27ac6e934ca435042a4bd75cc4a63cc1e1f51fe4',
@@ -56,8 +56,8 @@
             'dev_requirement' => false,
         ),
         'illuminate/collections' => array(
-            'pretty_version' => 'v12.38.1',
-            'version' => '12.38.1.0',
+            'pretty_version' => 'v12.37.0',
+            'version' => '12.37.0.0',
             'reference' => 'deb291b109b6f7fd776a3550a120771137b3c5d1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/collections',
@@ -65,8 +65,8 @@
             'dev_requirement' => false,
         ),
         'illuminate/conditionable' => array(
-            'pretty_version' => 'v12.38.1',
-            'version' => '12.38.1.0',
+            'pretty_version' => 'v12.37.0',
+            'version' => '12.37.0.0',
             'reference' => 'ec677967c1f2faf90b8428919124d2184a4c9b49',
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/conditionable',
@@ -74,8 +74,8 @@
             'dev_requirement' => false,
         ),
         'illuminate/container' => array(
-            'pretty_version' => 'v12.38.1',
-            'version' => '12.38.1.0',
+            'pretty_version' => 'v12.37.0',
+            'version' => '12.37.0.0',
             'reference' => 'd6eaa8afd48dbe16b6b3c412a87479cad67eeb12',
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/container',
@@ -83,8 +83,8 @@
             'dev_requirement' => false,
         ),
         'illuminate/contracts' => array(
-            'pretty_version' => 'v12.38.1',
-            'version' => '12.38.1.0',
+            'pretty_version' => 'v12.37.0',
+            'version' => '12.37.0.0',
             'reference' => '5ab717c8f0dd4e84be703796bbb415ccff8de57a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/contracts',
@@ -92,17 +92,17 @@
             'dev_requirement' => false,
         ),
         'illuminate/database' => array(
-            'pretty_version' => 'v12.38.1',
-            'version' => '12.38.1.0',
-            'reference' => 'eacbdddf31f655fba5406fdf31bd264d880dd1a8',
+            'pretty_version' => 'v12.37.0',
+            'version' => '12.37.0.0',
+            'reference' => 'e42bec6ad999bcc78ce9f3789f5ef937ee2e5982',
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/database',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'illuminate/macroable' => array(
-            'pretty_version' => 'v12.38.1',
-            'version' => '12.38.1.0',
+            'pretty_version' => 'v12.37.0',
+            'version' => '12.37.0.0',
             'reference' => 'e862e5648ee34004fa56046b746f490dfa86c613',
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/macroable',
@@ -110,9 +110,9 @@
             'dev_requirement' => false,
         ),
         'illuminate/support' => array(
-            'pretty_version' => 'v12.38.1',
-            'version' => '12.38.1.0',
-            'reference' => '008b6c0d45f548de0f801d60a5854a7f9e4dd32f',
+            'pretty_version' => 'v12.37.0',
+            'version' => '12.37.0.0',
+            'reference' => '480df979c8ffe700d6adb6e6e64abe04b32e02e3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/support',
             'aliases' => array(),
@@ -295,7 +295,7 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'victo/15_api' => array(
+        'victor/app' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'reference' => '27ac6e934ca435042a4bd75cc4a63cc1e1f51fe4',

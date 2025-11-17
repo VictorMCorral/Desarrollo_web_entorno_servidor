@@ -9,52 +9,44 @@
         }
 
         public function cargarRutas(){
-            $this ->routes["GET"]["/departs"] = ["controller" => "HomeControllers", "action" => "getAll"];
-            $this ->routes["GET"]["/departs/{id}"] = ["controller" => "HomeControllers", "action" => "getId"];
-            $this ->routes["POST"]["/departs/create"] = ["controller" => "HomeControllers", "action" => "create"];
-            $this ->routes["PUT"]["/departs/{id}"] = ["controller" => "HomeControllers", "action" => "update"];
-            $this ->routes["DELETE"]["/departs/{id}"] = ["controller" => "HomeControllers", "action" => "delete"];
+            $this ->routes["/"] = ["controller" => "HomeControllers", "action" => "index"];
+            $this ->routes["/loginForm"] = ["controller" => "HomeControllers", "action" => "log"];
+            $this ->routes["/loginPost"] = ["controller" => "HomeControllers", "action" => "logDat"];
+            $this ->routes["/registerForm"] = ["controller" => "HomeControllers", "action" => "register"];
+            $this ->routes["/registerPost"] = ["controller" => "HomeControllers", "action" => "register2"];
+            $this ->routes["/logOut"] = ["controller" => "HomeControllers", "action" => "logOut"];
         }
 
-        public function handleRequest(){
-            $method = $_SERVER["REQUEST_METHOD"];
-            $parsedUrl = parse_url($_SERVER["REQUEST_URI"]);
+        public function peticion(){
+            $ruta = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $method = $_SERVER['REQUEST_METHOD'];
 
-            $path =rtrim($parsedUrl, "/");
-            $originalPath = $path;
+            if (isset($this->routes[$ruta])){
+                $route = $this->routes[$ruta];
+                $controllerClass = 'App\\Controllers\\' . $route['controller'];
+                $accion = $route["action"];
+                
+                
+                if(!class_exists($controllerClass)) {
+                    echo "No existe la clase <br>";
+                    echo $controllerClass . "<br>";
+                }
+                
 
-            $parts = explode("/", trim($path, "/"));
+                if(class_exists($controllerClass) && method_exists($controllerClass, $accion)){
+                    $controller = new $controllerClass();
 
-            $paramValue = null;
-
-            if(is_numeric(end($parts))){
-                $paramValue = array_pop($parts);
-                $path = "/" . implode("/", $parts) . "/{id}";
-            }
-
-            if(isset($this->routes[$method][$path])){
-                $route= $this->routes[$method][$path];
-                $controllerClass = "\\App\\Controllers\\" . $route["controller"];
-                $action = $route["action"];
-
-                error_log("ruta: " . $controllerClass . " action: " . $action);
-
-                if(class_exists($controllerClass) && method_exists($controllerClass, $action))
-                {
-                    $controller = new $controllerClass;
-
-                    if($paramValue !== null){
-                        $controller->$action($paramValue);
+                    if($method == "GET"){
+                        $controller ->$accion($_GET);
                     } else {
-                        $controller->$action();
+                        $controller ->$accion($_POST);
                     }
+                    
                 } else {
-                    http_response_code(404);
-                    echo json_encode(["error" => "Recurso no encontrado"]);
+                    echo "NO existe el controlador o el metodo <br>";
                 }
             } else {
-                http_response_code(404);
-                echo json_encode(["error" => "Recurso no encontrado"]);
+                echo "NO existe la ruta";
             }
         }
     

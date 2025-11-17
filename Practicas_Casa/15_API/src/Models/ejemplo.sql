@@ -1,10 +1,8 @@
-CREATE TABLE IF NOT EXISTS  usuarios(
-    id  INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    compra VARCHAR(255),
-    created_at timestamp DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS  depart(
+    depart_no INT PRIMARY KEY,
+    dnombre VARCHAR(255) NOT NULL,
+    loc VARCHAR(255) NOT NULL,
 );
 
 
-INSERT INTO usuarios(username, password, compra) VALUES ("Victor", "aaa", "");
+INSERT INTO depart(depart_no, dnombre, loc) VALUES (10, "Prueba", "Madrid");

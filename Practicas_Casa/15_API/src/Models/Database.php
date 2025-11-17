@@ -2,78 +2,64 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Capsule\Manager as Capsule;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-use App\Models\Usuario;
+use PDO;
+use PDOException;
 
-class Database
-{
+class Database{
+    private $pdo;
 
     public function __construct($host, $database, $username, $password)
     {
         try {
-            $capsule = new Capsule;
+            $this->pdo = new PDO(
+                "mysql:host={$host};dbname={$database};", $username, $password);
 
-            $capsule->addConnection([
-                "driver" => 'mysql',
-                "host" => $host,
-                "database" => $database,
-                "username" => $username,
-                "password" => $password,
-                "charset" => 'utf8mb4',
-                "collation" => 'utf8mb4_unicode_ci',
-                "prefix" => '',
-            ]);
-
-            $capsule->setAsGlobal();
-            $capsule->bootEloquent();
-
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             error_log("Conexión exitosa a la base de datos.");
-        } catch (\Exception $e) {
+        } catch (PDOException $e) {
             die("Error al conectar a la base de datos: " . $e->getMessage());
         };
     }
+    public function query($instruccion, $parametros = []){
+        try {
+            $stmt = $this->pdo->prepare($instruccion);
+            $stmt->execute($parametros);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    public function getUser($username)
-    {
-        return Usuario::where("username", $username)->first();
+        } catch (PDOException $e){
+            die("Error en la consulta: " . $e->getMessage());
+        }
+    }
+    public function execute($instruccion, $parametros = []){
+        try{
+            $stmt = $this->pdo->prepare($instruccion);
+            $stmt->execute($parametros);
+            return $stmt->rowCount();
+        } catch(PDOException $e){
+            die("Error en la ejecución: " . $e->getMessage());
+        }
     }
 
-    public function loadUser()
-    {
-        if (isset($_COOKIE['token'])) {
-            try {
-                $decoded = JWT::decode($_COOKIE['token'], new Key($_ENV['KEY'], 'HS256'));
-                return (array)$decoded;
-            } catch (\Exception $e) {
-                return null;
-            }
-        }
-        return null;
+
+    public function getAll(){
+        return $this->query("SELECT * FROM depart");
     }
 
+    public function getId($id){
+        return $this->query("SELECT * FROM depart WHERE depart_no=:id", ["id" => $id]);
+    }
 
-    public function addUser($username, $password, $compra = null)
-    {
-        $existingUser = Usuario::where('username', $username)->first();
-        if ($existingUser) {
-            $comprobacion = [
-                "success" => false,
-                "error" => "El usuario ya existe"
-            ];
-        } else {
-            $user = new \App\Models\Usuario();
-            $user->username = $username;
-            $user->password = password_hash($password, PASSWORD_DEFAULT);
-            $user->compra = $compra;
-            $user->save();
-            $comprobacion = [
-                "success" => true,
-                "error" => "Usuario registrado correctamente",
-                "user" => $user
-            ];
-        }
-        return $comprobacion;
+    public function create($depart_no, $dnombre, $loc){
+        return $this->execute("INSERT INTO depart(depart_no, dnombre, loc) VALUES(:depart_no, :dnombre, :loc)", 
+                            ["depart_no" => $depart_no, "dnombre" => $dnombre, "loc" => $loc ]);
+    }
+
+    public function update($depart_no, $dnombre, $loc){
+        return $this->execute("UPDATE depart SET dnombre = :dnombre, loc=:loc WHERE depart_no=:depart_no" ,
+        ["depart_no" => $depart_no, "dnombre" => $dnombre, "loc" => $loc]);
+    }
+
+    public function delete($id){
+        return $this->execute("DELETE FROM depart WHERE depart_no=:id", ["id"=> $id]);
     }
 }
