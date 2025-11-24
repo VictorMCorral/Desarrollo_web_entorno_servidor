@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="pedirdatos()">Pedir datos</button> <br>
+    <hr>
+    <button onclick="pedirdatosID(document.getElementById('id').value)">Pedir datos ID</button> 
+    <input type="number" id="id" >
+    <br>
+    <hr>
+    <form method="post" id="formulario" >
+        <input type="number" name="depart_no" placeholder="depart_no" id="depart_no">
+        <input type="text" name="dnombre" placeholder="dnombre" id="dnombre">
+        <input type="text" name="loc" placeholder="loc" id="loc">
+        <input type="submit" value="Crear">
+    </form>
+    <hr>
+    <button onclick="actualizarDatos(document.getElementById('idU').value)">Pedir datos ID Update</button> 
+    <input type="number" id="idU" >
+    <form method="post" id="formUpdate">
+        <div id="oculto" style="display: none;">
+            <input type="number" id="depart_noU" value="0">
+            <input type="text" id="dnombreU" value="prueba">
+            <input type="text" id="locU" value="prueba">
+            <input type="submit" value="Actualizar">
+        </div>
+        
+    </form>
+    <hr>   
+    <button onclick="borrarDatos(document.getElementById('idD').value)">Pedir datos ID Delete</button> 
+    <input type="number" id="idD" >
+
+    <div id="respuesta"></div>
+
+
+    <script>
+        function pedirdatos() {
+            fetch("http://localhost:8000/departs")
+                .then(response => response.json())
+                .then(data => pintardatos(data));
+        }
+
+
+        function pintardatos(data) {
+            let texto = "<ul>";
+
+            for (let i = 0; i <data.length; i++) {
+                texto += "<li>" + data[i].depart_no + " " + data[i].dnombre + " " + data[i].loc + "</li>" + "<br>";
+            }
+
+            texto += "</ul>";
+            document.getElementById("respuesta").innerHTML = texto;
+        }
+
+        function pedirdatosID(id){
+            console.log(id);
+            let url = "http://localhost:8000/departs/" + id;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => pintardatos(data));
+        }
+
+
+        function create(depart_no, dnombre, loc){
+            this.preventDefault();
+
+            fetch("http://localhost:8000/departs/create", {
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({"depart_no" : depart_no,
+                                        "dnombre" : dnombre,
+                                        "loc": loc})
+            })
+        }
+
+        document.getElementById("formulario").addEventListener("submit", function (e) {
+            e.preventDefault();
+            console.log("Esto es otra prueba")
+            let depart_no = document.getElementById("depart_no").value;
+            let dnombre = document.getElementById("dnombre").value;
+            let loc = document.getElementById("loc").value;
+            
+            let datos = {
+                "depart_no" : depart_no,
+                "dnombre" : dnombre,
+                "loc" : loc
+            }
+
+            fetch("http://localhost:8000/departs/create", {
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify(datos)
+            })
+            .then(res =>pedirdatos() )
+        })
+
+        function actualizarDatos(id){
+            let url = "http://localhost:8000/departs/" + id;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("depart_noU").value = data[0].depart_no;
+                    document.getElementById("dnombreU").value = data[0].dnombre;
+                    document.getElementById("locU").value = data[0].loc;
+                    document.getElementById("oculto").style.display = "block";
+            })
+            
+        }
+
+        document.getElementById("formUpdate").addEventListener("submit", function (e) {
+            e.preventDefault();
+            
+            let depart_no = document.getElementById("depart_noU").value;
+            let dnombre = document.getElementById("dnombreU").value;
+            let loc = document.getElementById("locU").value;
+            let url = "http://localhost:8000/departs/" + depart_no
+            
+            let datos = {
+                "depart_no" : depart_no,
+                "dnombre" : dnombre,
+                "loc" : loc
+            }
+
+            fetch(url, {
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                method: "PUT",
+                body: JSON.stringify(datos)
+            })
+            .then(res =>pedirdatos() )
+        })
+
+        function borrarDatos(id){
+            let url = "http://localhost:8000/departs/" + id;
+
+            fetch(url, {
+                method: "DELETE",
+            })
+            .then(res =>pedirdatos() )        
+        }
+            
+    </script>
+</body>
+
+</html>

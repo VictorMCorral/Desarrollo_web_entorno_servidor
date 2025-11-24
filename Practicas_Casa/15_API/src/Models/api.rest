@@ -1,3 +1,4 @@
+
 GET http://localhost:8000/departs
 
 ###
@@ -8,23 +9,26 @@ GET http://localhost:8000/departs/20
 
 POST http://localhost:8000/departs/create
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAiLCJpYXQiOjE3NjM3MTA4OTMsImV4cCI6MTc2MzcxNDQ5MywidXNlcl9pZCI6IlZpY3RvciBNLiJ9.xnxgiUb8s8TaSW7FbzuxDZnj54ZmkLXHmmQI__o14mw
 
 {
-    "depart_no": 80,
+    "depart_no": 88880,
     "dnombre" : "Departamento de Pruebas",
     "loc" : "Madrid"
 }
 
 ###
 
-PUT http://localhost:8000/departs/80
+PUT http://localhost:8000/departs/88880
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAiLCJpYXQiOjE3NjM3MTA4OTMsImV4cCI6MTc2MzcxNDQ5MywidXNlcl9pZCI6IlZpY3RvciBNLiJ9.xnxgiUb8s8TaSW7FbzuxDZnj54ZmkLXHmmQI__o14mw
 
 {
-    "DEPART_no": 80,
-    "dnombre" : "Departamento de Pruebas",
+    "DEPART_no": 88880,
+    "dnombre" : "Departamento de Pruebas 555",
     "loc" : "Barcelona"
 }
 
 ###
-DELETE http://localhost:8000/departs/80
+DELETE http://localhost:8000/departs/88880
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAiLCJpYXQiOjE3NjM3MTA4OTMsImV4cCI6MTc2MzcxNDQ5MywidXNlcl9pZCI6IlZpY3RvciBNLiJ9.xnxgiUb8s8TaSW7FbzuxDZnj54ZmkLXHmmQI__o14mw

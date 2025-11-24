@@ -1,0 +1,30 @@
+
+Peticion: 
+	Metodo: GET; 
+	Url: /departs; 
+	Usuario: Sin autorizacion; 
+	Hora: Fri Nov 21 9:25:42 CET 2025
+
+Peticion: 
+	Metodo: GET; 
+	Url: /departs/20; 
+	Usuario: Sin autorizacion; 
+	Hora: Fri Nov 21 9:25:43 CET 2025
+
+Peticion: 
+	Metodo: POST; 
+	Url: /departs/create; 
+	Usuario: Victor M.; 
+	Hora: Fri Nov 21 9:25:44 CET 2025
+
+Peticion: 
+	Metodo: PUT; 
+	Url: /departs/88880; 
+	Usuario: Victor M.; 
+	Hora: Fri Nov 21 9:25:46 CET 2025
+
+Peticion: 
+	Metodo: DELETE; 
+	Url: /departs/88880; 
+	Usuario: Victor M.; 
+	Hora: Fri Nov 21 9:25:50 CET 2025

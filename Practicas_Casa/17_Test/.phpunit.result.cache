@@ -1,0 +1,1 @@
+{"version":2,"defects":{"CalculadoraTest::testRestar":7,"CalculadoraTest::testDividirPorCero":7,"CalculadoraTest::testMultiplicar":7},"times":{"CalculadoraTest::testSumar":0.01,"CalculadoraTest::testRestar":0,"CalculadoraTest::testDividirPorCero":0.002,"CalculadoraTest::testMultiplicar":0,"CalculadoraTest::testDividir":0}}
