@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Al fin lo consegui!!</h1>
+    {% if sesionActiva %}
+        <ul>
+            <li><a href="/listDepart">Listado de departamentos</a></li>
+            <li><a href="/listEmple">Listado de empleados</a></li>
+            <li><a href="/addDepart">Agregar departamento nuevo</a></li>
+        <form action="/logoutCookie" method="post">
+            <input type="submit" value="LogOut">
+        </form>
+    </ul>
+    {% else %}
+    <form action="/loginCookie" method="post">
+        <label for="user">Introduce tu usuario</label><br>
+        <input type="text" name="user" placeholder="Introduce tu usuario"><br><br>  
+        <label for="user">Introduce tu contraseña</label><br>
+        <input type="text" name="pass" placeholder="Introduce tu contraseña"><br><br>
+        <input type="submit" value="Entrar">
+    </form>
+    {% endif %}
+    <p>{{ mensaje }}</p>
+</body>
+</html>
