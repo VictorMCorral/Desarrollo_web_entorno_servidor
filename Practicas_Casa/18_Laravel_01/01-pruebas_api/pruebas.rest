@@ -1,0 +1,33 @@
+GET http://localhost:8000/api/products HTTP/1.1
+Accept: application/json
+
+###
+POST http://localhost:8000/api/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre" : "Prueba",
+    "descripcion" : "Esto es una prueba",
+    "precio" : 15,
+    "foto" : null
+}
+
+###
+GET http://localhost:8000/api/products/1 HTTP/1.1
+Accept: application/json
+
+###
+PUT http://localhost:8000/api/products/6 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nombre" : "Prueba2",
+    "descripcion" : "Esto es una prueba",
+    "precio" : 155555,
+    "foto" : null
+}
+
+###
+DELETE http://localhost:8000/api/products/6 HTTP/1.1
+Accept: application/json

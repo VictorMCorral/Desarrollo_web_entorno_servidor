@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double("salario");
             $table->double("comision")->nullable();
             $table->integer("depart_no");
+            $table->string("foto")->nullable();
             
             $table->foreign('depart_no')->references('depart_no')->on('departs2');
             $table->foreign('dir')->references('emple_no')->on('emples');

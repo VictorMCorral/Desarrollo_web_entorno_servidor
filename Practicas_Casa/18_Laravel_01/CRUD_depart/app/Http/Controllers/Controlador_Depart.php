@@ -7,15 +7,18 @@ use App\Models\Depart;
 
 class Controlador_Depart extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $departs = Depart::all();
 
-        return view("Depart.index",["departs" => $departs]);
+        return view("Depart.index", ["departs" => $departs]);
     }
-    public function create(){
+    public function create()
+    {
         return view("Depart.form");
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $depart_no = $request->input("depart_no");
         $dnombre = $request->input("dnombre");
         $loc = $request->input("loc");
@@ -29,24 +32,40 @@ class Controlador_Depart extends Controller
         return redirect("/departs");
     }
 
-    public function show(){
-        
-    }
+    public function show() {}
 
-    
-    public function edit($id){
+
+    public function edit($id)
+    {
         $depart = Depart::find($id);
 
         //return view("Depart.formUpdate",["depart" => $depart]);
         return view("Depart.formUpdate", compact("depart"));
     }
-    public function update(){
-        
+    public function update(Request $request, $id)
+    {
+
+        $dnombre = $request->input("dnombre");
+        $loc = $request->input("loc");
+
+        $depart = Depart::find($id);
+
+        $depart->update([
+            'dnombre'   => $dnombre,
+            'loc'       => $loc,
+        ]);
+
+        return redirect("/departs");
     }
-    public function destroy($id){
 
-        Depart::destroy($id);
 
-        return redirect()->route("departs.index");
+    public function destroy($id)
+    {
+        try {
+            Depart::destroy($id);
+        } catch (\Exception $e) {
+            return redirect()->route("departs.index")->with('error', 'No se puede eliminar el empleado.') ;
+        }
+        return redirect()->route("departs.index")->with('sucess', 'No se puede eliminar el empleado.') ;
     }
 }

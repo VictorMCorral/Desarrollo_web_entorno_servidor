@@ -14,10 +14,10 @@ class Departs extends Seeder
     {
         DB::statement("
             INSERT INTO departs2 (depart_no, dnombre, loc, created_at, updated_at) VALUES 
-                (10,'CONTABILIDAD','SEVILLA', NULL, NULL),
-                (20,'INVESTIGACIÓN','MADRID', NULL, NULL),
-                (30,'VENTAS','BARCELONA',  NULL, NULL),
-                (40,'PRODUCCIÓN','BILBAO',  NULL, NULL);
+                (10,'CONTABILIDAD','SEVILLA', NOW(), NOW()),
+                (20,'INVESTIGACIÓN','MADRID', NOW(), NOW()),
+                (30,'VENTAS','BARCELONA',  NOW(), NOW()),
+                (40,'PRODUCCIÓN','BILBAO',  NOW(), NOW());
         ");
     }
 }
