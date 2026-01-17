@@ -18,4 +18,10 @@ class orders_items extends Model
         "quantity",
         "unit_price"
     ];
+
+
+    public function product()
+    {
+        return $this->belongsTo(products::class, 'product_id');
+    }
 }

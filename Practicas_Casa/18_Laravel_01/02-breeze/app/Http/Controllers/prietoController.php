@@ -99,19 +99,12 @@ class PrietoController extends Controller
         return Products::all();
     }
 
+    
     public function ordersShow()
     {
-        $pedidosImprimir = [];
-        $pedidos = orders::where("user_id", Auth::id())->get();
+        $orders = orders::with('items.product')->where('user_id', Auth::id())->get();
 
-        foreach ($pedidos as $pedido) {
-            $lineasPedido = orders_items::where("order_id", $pedido->id)->get();
-            $pedidosImprimir[] = [
-                'pedido' => $pedido->id,
-                'lineas' => $lineasPedido
-            ];
-        }
-        //dd($pedidosImprimir);
-        return view("pedidos", compact("pedidosImprimir"));
+        return view('pedidos', compact('orders'));
+
     }
 }

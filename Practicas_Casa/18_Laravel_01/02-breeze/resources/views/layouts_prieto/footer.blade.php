@@ -1,4 +1,4 @@
-<footer class="py-4 mt-5">
+<footer class="py-4 fixed-bottom bg-dark text-light">
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
         <div class="d-flex align-items-center mb-3 mb-md-0">
             <img src="{{ asset('storage/img/logoN.png') }}" alt="Prieto Eats" class="me-2" style="width: 40px; height: 40px;">
