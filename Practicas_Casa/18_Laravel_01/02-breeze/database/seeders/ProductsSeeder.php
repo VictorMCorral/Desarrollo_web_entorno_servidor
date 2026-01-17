@@ -16,45 +16,55 @@ class ProductsSeeder extends Seeder
             "name" => "Pollo",
             "description" => "Pollo asado",
             "price" => 12,
-            "available" => true, 
+            "available" => true,
             "product_type" => "plato",
-            "image" => null,
+            "image" => "storage/img/pollo.png",
             "date" => now()->toDateString(),
-            "pick_up" => "Recoger en local", 
+            "pick_up" => "Recoger en local",
         ]);
 
         DB::table('products')->insert([
-            "name" => "Menu 2",
+            "name" => "Menu 20 de Enero del 2026",
+            "description" => "Menu 20",
+            "price" => 8,
+            "available" => true,
+            "product_type" => "menu",
+            "image" => "storage/img/menu20Enero2026.png",
+            "date" => now()->toDateString(),
+            "pick_up" => "Recoger en local",
+        ]);
+
+        DB::table('products')->insert([
+            "name" => "Menu 02 de Diciembre del 2025",
             "description" => "Menu 2",
             "price" => 8,
-            "available" => true, 
+            "available" => true,
             "product_type" => "menu",
-            "image" => null,
+            "image" => "storage/img/menu2dic2025.png",
             "date" => now()->toDateString(),
-            "pick_up" => "Recoger en local", 
+            "pick_up" => "Recoger en local",
         ]);
 
         DB::table('products')->insert([
-            "name" => "Menu 11",
+            "name" => "Menu 11 de Noviembre del 2025",
             "description" => "Menu 11",
             "price" => 8,
-            "available" => true, 
+            "available" => true,
             "product_type" => "menu",
-            "image" => null,
+            "image" => "storage/img/menu11Nov2025.png",
             "date" => now()->toDateString(),
-            "pick_up" => "Recoger en local", 
+            "pick_up" => "Recoger en local",
         ]);
 
         DB::table('products')->insert([
-            "name" => "Menu 25",
+            "name" => "Menu 25 Noviembre del 2025",
             "description" => "Menu 25",
             "price" => 8,
-            "available" => true, 
+            "available" => true,
             "product_type" => "menu",
-            "image" => null,
+            "image" => "storage/img/menu25Nov2025.png",
             "date" => now()->toDateString(),
-            "pick_up" => "Recoger en local", 
+            "pick_up" => "Recoger en local",
         ]);
-        
     }
 }

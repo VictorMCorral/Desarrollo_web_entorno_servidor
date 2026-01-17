@@ -9,7 +9,7 @@
                 @if($producto->product_type == "plato")
                 <div class="col">
                     <div class="card h-100 shadow-sm border-0">
-                        <img src="{{ asset('storage/img/pollo.png') }}" class="card-img-top img-fluid" style="object-fit:contain;" alt="Producto 2">
+                        <img src="{{ asset($producto->image) }}" class="card-img-top img-fluid" style="object-fit:contain;" alt="Producto 2">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title fw-bold">{{ $producto->name }}</h5>
                             <p class="card-text text-muted flex-grow-1">Descripción corta y atractiva del producto.</p>
@@ -42,7 +42,7 @@
                 @if($producto->product_type == "menu")
                 <div class="col">
                     <div class="card h-100 shadow-sm border-0">
-                        <img src="{{ asset('storage/img/menu25Nov2025.png') }}" class="card-img-top img-fluid" style="object-fit:contain;" alt="Producto 2">
+                        <img src="{{ asset($producto->image) }}" class="card-img-top img-fluid" style="object-fit:contain;" alt="Producto 2">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title fw-bold">{{ $producto->name }}</h5>
                             <p class="card-text text-muted flex-grow-1">Descripción corta y atractiva del producto.</p>

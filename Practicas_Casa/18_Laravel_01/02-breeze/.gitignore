@@ -22,3 +22,15 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# =========================
+# STORAGE
+# =========================
+
+# Ignorar todo storage
+/storage/*
+
+# EXCEPCIÓN: permitir solo esta carpeta
+!/storage/app/
+!/storage/app/public/
+!/storage/app/public/img/
