@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+use function Symfony\Component\Clock\now;
 
 class products extends Seeder
 {
@@ -32,7 +33,7 @@ class products extends Seeder
                 'nombre' => 'Auriculares',
                 'descripcion' => 'Bluetooth con cancelación de ruido',
                 'precio' => 89.50,
-                'foto' => 'auriculares.jpg'
+                'foto' => null
             ],
             [
                 'nombre' => 'Mochila Escolar',

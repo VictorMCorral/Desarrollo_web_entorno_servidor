@@ -1,9 +1,12 @@
 GET http://localhost:8000/api/products HTTP/1.1
+Authorization: Bearer 2|IVGvZUkHlRIBohViDDsuX7BYLvehzPFMDu4eawdh8145143c
 Accept: application/json
 
 ###
 POST http://localhost:8000/api/products HTTP/1.1
+Authorization: Bearer 2|IVGvZUkHlRIBohViDDsuX7BYLvehzPFMDu4eawdh8145143c
 Content-Type: application/json
+Accept: application/json
 
 {
     "nombre" : "Prueba",
@@ -13,11 +16,13 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/api/products/1 HTTP/1.1
+GET http://localhost:8000/api/products/6 HTTP/1.1
+Authorization: Bearer 2|IVGvZUkHlRIBohViDDsuX7BYLvehzPFMDu4eawdh8145143c
 Accept: application/json
 
 ###
-PUT http://localhost:8000/api/products/6 HTTP/1.1
+PUT http://localhost:8000/api/products/8 HTTP/1.1
+Authorization: Bearer 2|IVGvZUkHlRIBohViDDsuX7BYLvehzPFMDu4eawdh8145143c
 Content-Type: application/json
 Accept: application/json
 
@@ -30,4 +35,27 @@ Accept: application/json
 
 ###
 DELETE http://localhost:8000/api/products/6 HTTP/1.1
+Authorization: Bearer 2|IVGvZUkHlRIBohViDDsuX7BYLvehzPFMDu4eawdh8145143c
 Accept: application/json
+
+###
+
+POST http://localhost:8000/api/login HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "arganis@mail.com",
+    "password": "1234"
+}
+
+###
+POST http://localhost:8000/api/register HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "victor",
+    "email": "victor@mail.com",
+    "password": "1234"
+}
