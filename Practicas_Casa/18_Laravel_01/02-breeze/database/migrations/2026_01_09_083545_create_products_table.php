@@ -16,12 +16,8 @@ return new class extends Migration
             $table->string("name");
             $table->string("description")->nullable();
             $table->double("price");
-            $table->boolean("available");
-            $table->string("product_type");
             $table->string("image")->nullable();
             $table->timestamps();
-            $table->date("date");
-            $table->string("pick_up");
         });
     }
 

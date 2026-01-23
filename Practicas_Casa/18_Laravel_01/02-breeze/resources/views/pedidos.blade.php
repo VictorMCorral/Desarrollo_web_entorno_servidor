@@ -13,15 +13,6 @@
                 </div>
                 <div class="d-flex flex-column align-items-end">
                     <small>Fecha: {{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y H:i') }}</small>
-                    <span class="badge
-                @if($order->status === 'pending') bg-warning
-                @elseif($order->status === 'completed') bg-success
-                @elseif($order->status === 'cancelled') bg-danger
-                @else bg-secondary
-                @endif
-            mt-1">
-                        {{ ucfirst($order->status) }}
-                    </span>
                 </div>
             </div>
         </div>
@@ -43,8 +34,8 @@
                         <tr>
                             <td>{{ $item->product->name }}</td>
                             <td>{{ $item->quantity }}</td>
-                            <td>${{ number_format($item->unit_price, 2) }}</td>
-                            <td>${{ number_format($item->quantity * $item->unit_price, 2) }}</td>
+                            <td>${{ number_format($item->product->price, 2) }}</td>
+                            <td>${{ number_format($item->quantity * $item->product->price, 2) }}</td>
                         </tr>
                         @endforeach
                         <tr>

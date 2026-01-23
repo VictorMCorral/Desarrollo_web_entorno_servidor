@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\admin\adminController;
+use App\Http\Controllers\admin\userController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\prietoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Termwind\Components\Raw;
 
 //HOME PRIETO
 Route::get("/prieto", [prietoController::class, 'mostrar'])->name("home_prieto");
@@ -32,8 +35,25 @@ Route::middleware("auth")->group(function () {
     
     //PEDIDOS
     Route::get("/ordersShow", [prietoController::class, 'ordersShow'])->name("ordersShow");
+
+    // Route::middleware("isAdmin")->group(function () {
+        //RUTAS ADMINISTRADOR
+
+
+    // });
 });
 
+// Route::middleware("auth", "isAdmin")->group(function () {
+   //RUTAS ADMINISTRADOR
+// });
+
+Route::middleware(["auth", "isAdmin"])
+    ->prefix("admin")
+    ->name("admin.")
+    ->group(function (){
+        //RUTAS ADMINISTRADOR
+        Route::resource("products", adminController::class);
+    });
 
 //LARAVEL
 Route::get('/', function () {

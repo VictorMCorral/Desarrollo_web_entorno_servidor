@@ -47,6 +47,20 @@
                 </li>
             </ul>
         </div>
+
+            @if(auth()->user()->isAdmin())
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm shadow-sm" data-bs-toggle="dropdown">
+                    Administrador
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ route('ordersShow') }}">Pedidos</a></li>
+                    <li><a class="dropdown-item" href="{{ route('ordersShow') }}">Productos</a></li>
+
+                </ul>
+            </div>
+            @endif
         @endauth
     </div>
 </header>

@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\offers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
 use App\Models\Products;
 use App\Models\User;
-use App\Models\orders;
-use App\Models\orders_items;
+use App\Models\Order;
+use App\Models\OrderProduct;
+use App\Models\Offer;
 
 
 class PrietoController extends Controller
@@ -19,9 +21,11 @@ class PrietoController extends Controller
 
     public function mostrar()
     {
-        $productos = $this->productos();
+        $offers = $this->offers();
 
-        return view("mostrar", ["productos" => $productos]);
+        //TODO retocar para que pinte los platos DENTRO de las ofertas
+        // dd($offers);
+        return view("mostrar", ["offers" => $offers]);
     }
 
     // LOGIN
@@ -72,6 +76,7 @@ class PrietoController extends Controller
                 'name' => $credentials['name'],
                 'email' => $credentials['email'],
                 'password' => bcrypt($credentials['password']),
+                "is_admin" => false,
             ]);
 
             Auth::login($user);
@@ -99,12 +104,17 @@ class PrietoController extends Controller
         return Products::all();
     }
 
-    
+    public function offers()
+    {
+        return Offer::where("datetime_limit", ">", now())->with("products")->get();
+
+    }
+
+
     public function ordersShow()
     {
-        $orders = orders::with('items.product')->where('user_id', Auth::id())->get();
-
+        $orders = Order::with("products")->where('user_id', Auth::id())->get();
+        // dd($orders);
         return view('pedidos', compact('orders'));
-
     }
 }

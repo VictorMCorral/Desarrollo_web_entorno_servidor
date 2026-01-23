@@ -18,8 +18,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-    <!-- CSS personalizado -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body class="font-sans antialiased">
@@ -37,13 +35,8 @@
         @include('layouts_prieto.footer')
     </div>
 
-    <!-- Scripts de Bootstrap (opcional si necesitas JS) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Y4kV+f7MLrZbKzp5q+KXxM4FJz0g/m5YF7E57tC95UlH6yUPF4uIYOGz0pTz6CnK"
-        crossorigin="anonymous"></script>
-
     <!-- Scripts personalizados -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <!--<script src="{{ asset('js/app.js') }}"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
