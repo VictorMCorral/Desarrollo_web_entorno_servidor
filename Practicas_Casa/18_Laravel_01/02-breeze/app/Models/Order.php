@@ -6,26 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $table = "orders";
-
-    public $incrementing = true;
-
-    public $timestamps = true;
-
     protected $fillable = [
-        "user_id",
-        "total",
-        #Agregar fecha_recogida
+        'user_id',
+        'total',
     ];
-
-    public function products()
-    {
-        return $this->hasMany(OrderProduct::class);
-    }
-
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(ProductOrder::class, 'order_id');
     }
 }

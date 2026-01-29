@@ -55,8 +55,9 @@
                 </button>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ route('ordersShow') }}">Pedidos</a></li>
-                    <li><a class="dropdown-item" href="{{ route('ordersShow') }}">Productos</a></li>
+                    <li><a class="dropdown-item" href="#">Pedidos</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.offers.index') }}">Ofertas</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.products.index') }}">Productos</a></li>
 
                 </ul>
             </div>

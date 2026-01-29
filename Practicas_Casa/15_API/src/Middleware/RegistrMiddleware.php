@@ -7,7 +7,7 @@ class RegistrMiddleware{
 
     public function __construct(){
         $this->path = __DIR__ . "./registros.txt";
-        //TODO Rectificar el usuario, userdata nunca tiene valor pues se declara despues;
+
     }
 
     public function handle($method, $path, $userData){

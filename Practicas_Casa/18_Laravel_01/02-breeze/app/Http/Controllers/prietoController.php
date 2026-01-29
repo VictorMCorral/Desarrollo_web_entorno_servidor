@@ -22,9 +22,6 @@ class PrietoController extends Controller
     public function mostrar()
     {
         $offers = $this->offers();
-
-        //TODO retocar para que pinte los platos DENTRO de las ofertas
-        // dd($offers);
         return view("mostrar", ["offers" => $offers]);
     }
 
@@ -106,8 +103,8 @@ class PrietoController extends Controller
 
     public function offers()
     {
-        return Offer::where("datetime_limit", ">", now())->with("products")->get();
-
+        return Offer::with("productsOffer.product")->where("date_delivery", ">", now())->get();
+        //->where("datetime_limit", ">", now())
     }
 
 

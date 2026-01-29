@@ -6,25 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Offer extends Model
 {
-    protected $table = "offers";
-
-    public $incrementing = true;
-
-    public $timestamps = true;
-
     protected $fillable = [
-        "date_delivery",
-        "time_delivery",
-        "dtetime_limit",
+        'date_delivery',
+        'time_delivery',
+        'datetime_limit'
     ];
 
+    protected $casts = [
+        'date_delivery' => 'date',
+    ];
 
-    public function products()
+    public function productsOffer()
     {
-        return $this->belongstoMany(Product::class
-        ,
-            "offers_products",
-            "offer_id",
-            "product_id");
+        return $this->hasMany(ProductOffer::class);
     }
 }

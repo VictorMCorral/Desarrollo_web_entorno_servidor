@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\admin\adminController;
+use App\Http\Controllers\admin\offerController;
+use App\Http\Controllers\admin\productController;
 use App\Http\Controllers\admin\userController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\prietoController;
@@ -27,12 +29,12 @@ Route::middleware("auth")->group(function () {
     Route::post("/cartAdd/{id}", [cartController::class, 'cartAdd'])->name("cartAdd");
     Route::delete("/cartRemove/{id}", [cartController::class, 'cartRemove'])->name("cartRemove");
     Route::delete("/cartClear", [cartController::class, 'cartClear'])->name("cartClear");
-    
+
     Route::post("/cartAddOne/{id}", [cartController::class, 'cartAddOne'])->name("cartAddOne");
     Route::post("/cartRemoveOne/{id}", [cartController::class, 'cartRemoveOne'])->name("cartRemoveOne");
     Route::post("/cartOrder", [cartController::class, 'cartOrder'])->name("cartOrder");
-    
-    
+
+
     //PEDIDOS
     Route::get("/ordersShow", [prietoController::class, 'ordersShow'])->name("ordersShow");
 
@@ -52,7 +54,8 @@ Route::middleware(["auth", "isAdmin"])
     ->name("admin.")
     ->group(function (){
         //RUTAS ADMINISTRADOR
-        Route::resource("products", adminController::class);
+        Route::resource("products", productController::class);
+        Route::resource("offers", offerController::class);
     });
 
 //LARAVEL
