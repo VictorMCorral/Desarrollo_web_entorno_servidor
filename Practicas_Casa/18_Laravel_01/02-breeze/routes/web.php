@@ -1,17 +1,14 @@
 <?php
 
-use App\Http\Controllers\admin\adminController;
 use App\Http\Controllers\admin\offerController;
 use App\Http\Controllers\admin\productController;
-use App\Http\Controllers\admin\userController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\prietoController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Termwind\Components\Raw;
+
 
 //HOME PRIETO
-Route::get("/prieto", [prietoController::class, 'mostrar'])->name("home_prieto");
+Route::get("/", [prietoController::class, 'mostrar'])->name("home_prieto");
 //LOGIN
 Route::get('/login_prieto', [prietoController::class, 'create'])->name('login_prieto');
 Route::post('login_prieto', [prietoController::class, 'store'])->name('login_prieto');
@@ -38,16 +35,8 @@ Route::middleware("auth")->group(function () {
     //PEDIDOS
     Route::get("/ordersShow", [prietoController::class, 'ordersShow'])->name("ordersShow");
 
-    // Route::middleware("isAdmin")->group(function () {
-        //RUTAS ADMINISTRADOR
-
-
-    // });
 });
 
-// Route::middleware("auth", "isAdmin")->group(function () {
-   //RUTAS ADMINISTRADOR
-// });
 
 Route::middleware(["auth", "isAdmin"])
     ->prefix("admin")
@@ -59,18 +48,18 @@ Route::middleware(["auth", "isAdmin"])
     });
 
 //LARAVEL
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__ . '/auth.php';

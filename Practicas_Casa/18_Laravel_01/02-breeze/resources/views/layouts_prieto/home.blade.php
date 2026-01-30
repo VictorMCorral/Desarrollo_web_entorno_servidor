@@ -27,7 +27,7 @@
         @include('layouts_prieto.cabecera')
 
         {{-- Contenido principal --}}
-        <main class="flex-grow-1 py-4">
+        <main class="flex-grow-1">
             @yield('content')
         </main>
 

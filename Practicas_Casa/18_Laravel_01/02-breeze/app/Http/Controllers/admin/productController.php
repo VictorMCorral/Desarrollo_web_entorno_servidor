@@ -43,7 +43,7 @@ class productController extends Controller
                 'name' => $request->name,
                 'price' => $request->price,
                 'description' => $request->description,
-                'image' => $imagePath ? asset('storage/' . $imagePath) : null,
+                'image' => $imagePath ?? '',
             ]);
         } catch (\Throwable $th) {
             error_log("algo ha pasado: " . $th->getMessage());

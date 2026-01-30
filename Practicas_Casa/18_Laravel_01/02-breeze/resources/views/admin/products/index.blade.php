@@ -10,7 +10,7 @@
         @foreach ($productos as $producto)
         <div class="col">
             <div class="card h-100 shadow-sm border-0">
-                <img src="{{ asset($producto->image) }}" class="card-img-top img-fluid" style="object-fit:contain;" alt="{{ $producto->name }}">
+                <img src="{{ asset('storage/' . $producto->image) }}" class="card-img-top img-fluid" style="object-fit:contain;" alt="{{ $producto->name }}">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold">{{ $producto->name }}</h5>
                     <p class="card-text text-muted flex-grow-1">Descripción corta y atractiva del producto.</p>

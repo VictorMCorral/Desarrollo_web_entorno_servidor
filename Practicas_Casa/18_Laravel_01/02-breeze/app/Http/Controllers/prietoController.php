@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\offers;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
 
-use App\Models\Products;
+
+use App\Models\Product;
 use App\Models\User;
 use App\Models\Order;
-use App\Models\OrderProduct;
 use App\Models\Offer;
 
 
@@ -37,7 +35,7 @@ class PrietoController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/prieto');
+        return redirect()->intended('/');
     }
 
     // REGISTER
@@ -78,7 +76,7 @@ class PrietoController extends Controller
 
             Auth::login($user);
 
-            return redirect('/prieto');
+            return redirect('/');
         } catch (\Throwable $th) {
             return back()->withErrors(['error' => 'No se pudo crear el usuario. Intente de nuevo.']);
         }
@@ -92,13 +90,13 @@ class PrietoController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/prieto');
+        return redirect('/');
     }
 
     //Productos
     public function productos()
     {
-        return Products::all();
+        return Product::all();
     }
 
     public function offers()
@@ -110,8 +108,8 @@ class PrietoController extends Controller
 
     public function ordersShow()
     {
-        $orders = Order::with("products")->where('user_id', Auth::id())->get();
-        // dd($orders);
+        $orders = Order::with("products.product")->where('user_id', Auth::id())->get();
+        //dd($orders);
         return view('pedidos', compact('orders'));
     }
 }
