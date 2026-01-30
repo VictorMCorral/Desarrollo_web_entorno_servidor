@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Products;
+use App\Models\Offer;
 use App\Models\orders;
 use App\Models\orders_items;
+use App\Models\ProductOffer;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -14,31 +15,59 @@ class cartController extends Controller
 {
     public function cartShow()
     {
-        $productos = session("carrito", []);
-        //dd($productos);
-        return view("carrito", compact("productos"));
+        $carrito = session("carrito", []);
+
+        $offerIds = array_keys($carrito);
+
+
+        $productOfferId = [];
+        foreach ($carrito as $offerId => $items) {
+            $productOfferId = array_merge($productOfferId, array_keys($items));
+        }
+
+        $productOfferId = array_unique($productOfferId);
+        // dd($offerIds);
+        $offersById = Offer::whereIn("id", $offerIds)
+            ->get()
+            ->keyBy("id");
+
+        $productsOffersById = ProductOffer::with("product")
+            ->whereIn("id", $productOfferId)
+            ->get()
+            ->keyBy("id");
+
+
+        // dd($carrito);
+        // dd($offersById);
+        // dd($productsOffersById[3]);
+
+        return view("carrito", compact("carrito", "offersById", "productsOffersById"));
     }
 
-    public function cartAdd($productID)
+    public function cartAdd($productOfferId)
     {
-        //CARRITO SESSION FUNCIONAL
-        $carrito = session('carrito', []);
+        //session()->forget("carrito");
+        $carrito = session()->get("carrito", []);
+        $productOffer = ProductOffer::findOrFail($productOfferId);
+        $offerId = $productOffer->offer_id;
 
-        if (isset($carrito[$productID])) {
-            $carrito[$productID]["cantidad"]++;
+        if (isset($carrito[$offerId])) {
+            if (isset($carrito[$offerId][$productOfferId])) {
+                $carrito[$offerId][$productOfferId]++;
+            } else {
+
+                $carrito[$offerId][$productOfferId] = 1;
+                error_log("NO reconoce que existe 1");
+            }
         } else {
-            $producto = Products::findOrFail($productID);
-            $carrito[$productID] = [
-                "nombre"   => $producto->name,
-                "cantidad" => 1,
-                "imagen"   => $producto->image,
-                "precio"   => $producto->price,
-            ];
 
-            session(['carrito' => $carrito]);
-        };
+            error_log("NO reconoce que existe LA OFERTA");
+            $nuevoProducto = [$productOfferId => 1];
 
+            $carrito[$offerId] = $nuevoProducto;
+        }
 
+        session()->put("carrito", $carrito);
 
         return redirect()->route("cartShow");
     }
@@ -61,7 +90,7 @@ class cartController extends Controller
     {
         session()->forget("carrito");
 
-        return redirect()->route("cartShow");
+        return redirect()->route("mostrar");
     }
 
     public function cartAddOne($productID)
