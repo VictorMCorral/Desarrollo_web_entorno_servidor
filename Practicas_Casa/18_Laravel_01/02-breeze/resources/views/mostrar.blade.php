@@ -36,7 +36,7 @@
         font-weight: 600;
         color: #64748b;
         background: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
         transition: all 0.3s ease;
     }
 
@@ -59,7 +59,7 @@
 
     .product-card:hover {
         transform: translateY(-12px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
     }
 
     .img-wrapper {
@@ -71,6 +71,9 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .img-wrapper img {

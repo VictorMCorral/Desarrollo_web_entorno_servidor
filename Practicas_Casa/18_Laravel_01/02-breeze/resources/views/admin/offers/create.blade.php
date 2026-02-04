@@ -6,17 +6,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
-    :root {
-        --bg-dark: #0f172a;
+    :root {      
         --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
-        --passion-gradient: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+        --glass-bg: rgba(255, 255, 255, 0.95);
         --accent-fresh: #06b6d4;
     }
 
-    body {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        background-color: #f8fafc;
-    }
 
     /* Luces de fondo (Ambient Glow) */
     .ambient-glow {
@@ -32,7 +27,7 @@
     /* Panel de Configuración (Izquierda) */
     .config-suite {
         background: var(--bg-dark);
-        color: white;
+
         border-radius: 30px;
         padding: 35px;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -42,7 +37,6 @@
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 1px;
-        color: #94a3b8;
         font-weight: 800;
         margin-bottom: 0.5rem;
     }
@@ -51,7 +45,6 @@
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 14px;
-        color: white;
         padding: 12px 15px;
         transition: 0.3s;
     }
@@ -60,7 +53,6 @@
         background: rgba(255, 255, 255, 0.1);
         border-color: #6366f1;
         box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
-        color: white;
     }
 
     /* Card de Productos (Derecha) */
@@ -68,7 +60,7 @@
         background: white;
         border: none;
         border-radius: 30px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         overflow: hidden;
     }
 
@@ -122,7 +114,7 @@
 
     /* Botón de Publicación (Pasión) */
     .btn-publish {
-        background: var(--passion-gradient);
+        background: var(--primary-gradient);
         color: white;
         border: none;
         border-radius: 16px;
@@ -225,11 +217,11 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             @if($producto->image)
-                                                <img src="{{ asset('storage/' . $producto->image) }}" class="product-thumb me-3 shadow-sm border">
+                                            <img src="{{ asset('storage/' . $producto->image) }}" class="product-thumb me-3 shadow-sm border">
                                             @else
-                                                <div class="product-thumb me-3 d-flex align-items-center justify-content-center text-muted border">
-                                                    <i class="bi bi-box-seam"></i>
-                                                </div>
+                                            <div class="product-thumb me-3 d-flex align-items-center justify-content-center text-muted border">
+                                                <i class="bi bi-box-seam"></i>
+                                            </div>
                                             @endif
                                             <div>
                                                 <span class="fw-bold text-dark d-block">{{ $producto->name }}</span>
@@ -260,4 +252,88 @@
         </div>
     </form>
 </div>
+
+<script>
+    (function() {
+        const input = document.getElementById('searchProducts');
+        const table = document.getElementById('productsTable');
+        if (!input || !table) return;
+
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        // Guardamos el índice original de cada fila para orden estable dentro de cada grupo
+        rows.forEach((tr, idx) => tr.dataset.initialIndex = idx);
+
+        const normalize = s =>
+            (s || '')
+            .toString()
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '');
+
+        let timer;
+        const debounced = (fn, delay = 120) => (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn(...args), delay);
+        };
+
+        const applyFilterAndSort = () => {
+            const q = normalize(input.value.trim());
+
+            // 1) Calcular visibilidad y separar en dos grupos
+            const selected = [];
+            const unselected = [];
+
+            rows.forEach(tr => {
+                const checkbox = tr.querySelector('input[type="checkbox"]');
+                const isChecked = checkbox && checkbox.checked;
+
+                const name = normalize(tr.querySelector('.product-name')?.textContent);
+                const desc = normalize(tr.querySelector('.product-desc')?.textContent);
+                const matchesQuery = !q || name.includes(q) || desc.includes(q);
+
+                // Si está marcado, SIEMPRE visible; si no, depende del filtro
+                const show = isChecked || matchesQuery;
+                tr.style.display = show ? '' : 'none';
+
+                // Solo consideramos para ordenar las que están visibles
+                if (show) {
+                    (isChecked ? selected : unselected).push(tr);
+                }
+            });
+
+            // 2) Reordenar: primero seleccionados, luego no seleccionados
+            //    Manteniendo orden original dentro de cada grupo (por data-initial-index)
+            selected.sort((a, b) => a.dataset.initialIndex - b.dataset.initialIndex);
+            unselected.sort((a, b) => a.dataset.initialIndex - b.dataset.initialIndex);
+
+            // 3) Reconstruir el tbody con las visibles ordenadas (las ocultas se quedan en su sitio, pero invisibles)
+            const fragment = document.createDocumentFragment();
+            selected.forEach(tr => fragment.appendChild(tr));
+            unselected.forEach(tr => fragment.appendChild(tr));
+
+            // Nota: las filas ocultas NO se reinsertan; permanecen en el DOM con display:none,
+            // por lo que no afectan al orden visible. Si quieres mover también las ocultas al final,
+            // descomenta el bloque siguiente:
+
+            // rows.forEach(tr => {
+            //     if (tr.style.display === 'none') fragment.appendChild(tr);
+            // });
+
+            tbody.appendChild(fragment);
+        };
+
+        // Filtrar y reordenar al teclear
+        input.addEventListener('input', debounced(applyFilterAndSort, 120));
+
+        // Reaplicar cuando cambie cualquier checkbox (selección/deselección)
+        table.addEventListener('change', (e) => {
+            if (e.target.matches('input[type="checkbox"]')) applyFilterAndSort();
+        });
+
+        // Primera pasada
+        applyFilterAndSort();
+    })();
+</script>
 @endsection

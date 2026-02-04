@@ -10,7 +10,7 @@ use App\Models\ProductOffer;
 use App\Models\ProductOrder;
 use Illuminate\Support\Facades\Auth;
 
-
+//TODO meter buscadores en productos de crear oferta, buscador en fechas de pedidos, linkx cabecera, nuevo offerta = nuevo producto, mensajes flash, borrar linea en carrito, agregar producto a carrito te lleve al home (flash)
 class cartController extends Controller
 {
     public function cartShow()
