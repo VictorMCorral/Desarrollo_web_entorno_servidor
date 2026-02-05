@@ -2,33 +2,30 @@
 
 @section("content")
 <div class="container section-spacing">
-    <!-- Header Section con Gradiente -->
-    <div class="page-hero text-center mb-5 fade-in">
-        <span class="badge badge-soft-primary">
-            <i class="bi bi-brightness-high-fill me-1"></i>
+    <!-- Header Section -->
+    <div class="text-center mb-5 fade-in">
+        <span class="badge" style="background: linear-gradient(135deg, #FF6B6B 0%, #EE5A52 100%); color: white; border: none;">
             Nuestra Selección
         </span>
-        <h1 class="main-title mt-4">Menú del Día</h1>
+        <h1 class="main-title mt-3">Menú del Día</h1>
         <p class="text-muted fs-6">Selecciona una fecha y descubre platos únicos</p>
     </div>
 
     <!-- Tabs de Fechas - Diseño Moderno -->
-    <div class="d-flex justify-content-center mb-5">
-        <ul class="nav nav-tabs-premium" id="tabs" role="tablist">
-            @foreach ($offers as $offer)
-            <li class="nav-item" role="presentation">
-                <button class="nav-link {{ $loop->first ? 'active' : '' }}"
-                    id="tab-{{ $offer->id }}"
-                    data-bs-toggle="tab"
-                    data-bs-target="#pane-{{ $offer->id }}"
-                    type="button" role="tab">
-                    <i class="bi bi-calendar-check me-2"></i>
-                    <span class="fw-semibold">{{ $offer->date_delivery->format('d M') }}</span>
-                </button>
-            </li>
-            @endforeach
-        </ul>
-    </div>
+    <ul class="nav nav-tabs-premium justify-content-center mb-5" id="tabs" role="tablist">
+        @foreach ($offers as $offer)
+        <li class="nav-item" role="presentation">
+            <button class="nav-link {{ $loop->first ? 'active' : '' }}"
+                id="tab-{{ $offer->id }}"
+                data-bs-toggle="tab"
+                data-bs-target="#pane-{{ $offer->id }}"
+                type="button" role="tab">
+                <i class="bi bi-calendar-check me-2"></i>
+                <span class="fw-semibold">{{ $offer->date_delivery->format('d M') }}</span>
+            </button>
+        </li>
+        @endforeach
+    </ul>
 
     <!-- Grid de Productos -->
     <div class="tab-content" id="myTabContent">
@@ -49,17 +46,17 @@
                         </div>
 
                         <!-- Contenido -->
-                        <div class="card-body d-flex flex-column px-4 pt-3 pb-4">
-                            <h5 class="product-title mb-2">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="fw-bold mb-2" style="color: #1A1A1A; font-size: 1.125rem;">
                                 {{ $productOffer->product->name }}
                             </h5>
 
-                            <p class="product-desc text-muted mb-3 flex-grow-1">
+                            <p class="text-muted small mb-3 flex-grow-1" style="line-height: 1.5;">
                                 {{ Str::limit($productOffer->product->description ?? 'Preparado con ingredientes frescos y seleccionados', 80) }}
                             </p>
 
                             <!-- Footer del Card -->
-                            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top" style="border-color: rgba(78, 205, 196, 0.1) !important;">
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <span class="price-tag">
                                     {{ number_format($productOffer->product->price, 2) }}
                                     <small class="fs-6">€</small>

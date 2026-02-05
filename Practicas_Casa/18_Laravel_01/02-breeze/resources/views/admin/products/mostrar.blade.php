@@ -1,131 +1,10 @@
 @extends("layouts_prieto.home")
 
 @section("content")
-<!-- Asegúrate de tener este link en tu layout principal o añádelo aquí para los iconos -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<style>
-    :root {
-        --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
-        --glass-bg: rgba(255, 255, 255, 0.95);
-    }
-
-    body {
-        background-color: #f8fafc;
-    }
-
-    .card {
-        border: none;
-        border-radius: 16px;
-    }
-
-    .table-container {
-        background: var(--glass-bg);
-        border-radius: 16px;
-        overflow: hidden;
-    }
-
-    .table thead th {
-        background-color: #f1f5f9;
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        letter-spacing: 0.05em;
-        color: #64748b;
-        border: none;
-        padding: 1.25rem;
-    }
-
-    .table tbody td {
-        padding: 1.25rem;
-        vertical-align: middle;
-        color: #1e293b;
-        border-bottom: 1px solid #f1f5f9;
-    }
-
-    .product-img {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-    }
-
-    .price-badge {
-        background: #e0e7ff;
-        color: #4338ca;
-        font-weight: 700;
-        padding: 0.5rem 0.8rem;
-        border-radius: 10px;
-        display: inline-block;
-    }
-
-    .btn-create {
-        background: var(--primary-gradient);
-        border: none;
-        color: white;
-        font-weight: 600;
-        padding: 0.8rem;
-        border-radius: 12px;
-        transition: 0.3s;
-    }
-
-    .btn-create:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
-        color: white;
-    }
-
-    .form-control, .form-control:focus {
-        border-radius: 10px;
-        padding: 0.75rem 1rem;
-        border-color: #e2e8f0;
-        background-color: #f8fafc;
-    }
-
-    /* ESTILO DE LOS BOTONES DE ACCIÓN */
-    .action-btn {
-        width: 38px;
-        height: 38px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        transition: all 0.2s ease;
-        border: 1.5px solid;
-    }
-
-    .btn-edit {
-        color: #f59e0b; /* Amarillo/Naranja para seriedad/atención */
-        border-color: #fef3c7;
-        background: #fef3c7;
-    }
-
-    .btn-edit:hover {
-        background: #f59e0b;
-        color: white;
-        border-color: #f59e0b;
-    }
-
-    .btn-delete {
-        color: #ef4444; /* Rojo para pasión/peligro */
-        border-color: #fee2e2;
-        background: #fee2e2;
-    }
-
-    .btn-delete:hover {
-        background: #ef4444;
-        color: white;
-        border-color: #ef4444;
-    }
-</style>
-
-<div class="container py-5">
-    <!-- Encabezado -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="fw-bold text-dark" style="letter-spacing: -1px;">Panel de Gestión</h2>
-            <p class="text-muted">Control total sobre tu inventario de productos.</p>
-        </div>
+<div class="container section-spacing">
+    <div class="admin-hero mb-4">
+        <h2 class="page-title">Panel de gestión</h2>
+        <p class="text-muted mb-0">Control total sobre tu inventario de productos.</p>
     </div>
 
     <div class="row g-4">
@@ -134,7 +13,7 @@
             <div class="table-container shadow-sm border">
                 <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-white">
                     <h5 class="mb-0 fw-bold text-secondary">Productos Registrados</h5>
-                    <span class="badge rounded-pill px-3 py-2" style="background: #eef2ff; color: #4338ca;">
+                    <span class="badge admin-badge">
                         {{ $productos->count() }} Unidades
                     </span>
                 </div>

@@ -1,155 +1,22 @@
 @extends("layouts_prieto.home")
 
 @section("content")
-<!-- Fuentes e Iconos -->
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<style>
-    :root {      
-        --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
-        --glass-bg: rgba(255, 255, 255, 0.95);
-        --accent-fresh: #06b6d4;
-    }
-
-
-    /* Luces de fondo (Ambient Glow) */
-    .ambient-glow {
-        position: fixed;
-        width: 40vw;
-        height: 40vw;
-        background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, rgba(248, 250, 252, 0) 70%);
-        top: -10vw;
-        right: -10vw;
-        z-index: -1;
-    }
-
-    /* Panel de Configuración (Izquierda) */
-    .config-suite {
-        background: var(--bg-dark);
-
-        border-radius: 30px;
-        padding: 35px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-
-    .form-dark-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-    }
-
-    .form-dark-input {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 14px;
-        padding: 12px 15px;
-        transition: 0.3s;
-    }
-
-    .form-dark-input:focus {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: #6366f1;
-        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
-    }
-
-    /* Card de Productos (Derecha) */
-    .selection-card {
-        background: white;
-        border: none;
-        border-radius: 30px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-        overflow: hidden;
-    }
-
-    .table thead th {
-        background: #f8fafc;
-        border: none;
-        color: #64748b;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        padding: 1.5rem;
-    }
-
-    .table tbody td {
-        padding: 1.2rem 1.5rem;
-        border-bottom: 1px solid #f1f5f9;
-        vertical-align: middle;
-    }
-
-    /* Checkbox Estilizado */
-    .form-check-input {
-        width: 1.5em;
-        height: 1.5em;
-        border-radius: 6px;
-        cursor: pointer;
-        border: 2px solid #e2e8f0;
-    }
-
-    .form-check-input:checked {
-        background-color: #6366f1;
-        border-color: #6366f1;
-    }
-
-    /* Badge de Precio Fresco */
-    .price-badge-fresh {
-        background: #ecfeff;
-        color: #0891b2;
-        font-weight: 700;
-        padding: 6px 12px;
-        border-radius: 10px;
-        font-size: 0.9rem;
-    }
-
-    .product-thumb {
-        width: 55px;
-        height: 55px;
-        object-fit: cover;
-        border-radius: 12px;
-        background: #f1f5f9;
-    }
-
-    /* Botón de Publicación (Pasión) */
-    .btn-publish {
-        background: var(--primary-gradient);
-        color: white;
-        border: none;
-        border-radius: 16px;
-        padding: 16px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        transition: all 0.4s;
-        box-shadow: 0 10px 20px rgba(244, 63, 94, 0.3);
-    }
-
-    .btn-publish:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(244, 63, 94, 0.4);
-        color: white;
-    }
-
-    .sticky-panel {
-        position: sticky;
-        top: 100px;
-    }
-</style>
-
-<div class="ambient-glow"></div>
-
-<div class="container py-5">
-    <div class="row mb-5">
-        <div class="col-12">
-            <span class="badge rounded-pill px-3 py-2 mb-2" style="background: #eef2ff; color: #4338ca; font-weight: 700;">ADMIN PANEL</span>
-            <h1 class="fw-800 text-dark" style="letter-spacing: -1.5px;">Configurador de Ofertas</h1>
-        </div>
+<div class="container section-spacing">
+    <!-- Encabezado de la Página -->
+    <div class="page-hero mb-5">
+        <span class="badge admin-badge mb-2">
+            <i class="bi bi-shield-check me-1"></i>
+            Admin panel
+        </span>
+        <h1 class="page-title mt-3 mb-2">Configurador de ofertas</h1>
+        <p class="text-muted mb-0">Crea y configura nuevas ofertas para tu menú diario.</p>
     </div>
 
-    <form method="POST" action="{{ route('admin.offers.store') }}">
-        @csrf
-        <div class="row g-5">
+    <!-- Formulario de Creación -->
+    <div class="page-hero">
+        <form method="POST" action="{{ route('admin.offers.store') }}">
+            @csrf
+            <div class="row g-5">
             <!-- COLUMNA IZQUIERDA: CONFIGURACIÓN -->
             <div class="col-lg-4">
                 <div class="sticky-panel">
@@ -162,20 +29,20 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-dark-label">Fecha de Entrega</label>
+                            <label class="form-dark-label">Fecha de entrega</label>
                             <div class="input-group">
-                                <input type="date" class="form-control form-dark-input" name="date_delivery" required>
+                                <input type="date" class="form-control" name="date_delivery" required>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-dark-label">Ventana Horaria</label>
+                            <label class="form-dark-label">Ventana horaria</label>
                             <div class="input-group">
-                                <input type="time" class="form-control form-dark-input" name="time_delivery" required>
+                                <input type="time" class="form-control" name="time_delivery" required>
                             </div>
                         </div>
 
-                        <div class="p-4 rounded-4 mb-4" style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.2);">
+                        <div class="info-panel mb-4">
                             <div class="d-flex gap-2">
                                 <i class="bi bi-info-circle-fill text-info"></i>
                                 <p class="small text-info mb-0 fw-semibold">Selecciona al menos un producto del inventario para habilitar la oferta.</p>
@@ -194,7 +61,7 @@
                 <div class="selection-card">
                     <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-white">
                         <h5 class="fw-bold m-0 text-dark">Inventario Disponible</h5>
-                        <span class="badge bg-light text-muted border px-3 py-2">{{ $productos->count() }} Items</span>
+                        <span class="badge admin-badge">{{ $productos->count() }} Items</span>
                     </div>
 
                     <div class="table-responsive">
@@ -242,15 +109,18 @@
 
                     @if($productos->isEmpty())
                     <div class="text-center py-5">
-                        <i class="bi bi-archive text-muted display-4 opacity-20"></i>
+                        <div class="empty-state-icon mb-3">
+                            <i class="bi bi-archive"></i>
+                        </div>
                         <h5 class="mt-3 text-muted">No hay productos disponibles</h5>
-                        <a href="{{ route('admin.products.index') }}" class="btn btn-link text-primary text-decoration-none fw-bold">Ir a Inventario</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-primary-app px-4">Ir a inventario</a>
                     </div>
                     @endif
                 </div>
             </div>
         </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 <script>

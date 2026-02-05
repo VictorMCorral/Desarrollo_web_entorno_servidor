@@ -1,19 +1,23 @@
 <header class="navbar navbar-expand-lg navbar-custom sticky-top">
     <div class="container-fluid px-lg-4">
-        <a href="{{ route('home_prieto') }}" class="navbar-brand d-flex align-items-center me-0">
+        <!-- Logo -->
+        <a href="{{ route('home_prieto') }}" class="navbar-brand d-flex align-items-center me-0" style="text-decoration: none;">
             <img src="{{ asset('storage/img/logoN.png') }}" alt="Logo" class="logo-img me-2">
             <span class="brand-text">Prieto Eats</span>
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- Botón Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
             <i class="bi bi-list"></i>
         </button>
 
+        <!-- Contenido Colapsable -->
         <div class="collapse navbar-collapse" id="navMain">
+            <!-- Nav Links Central -->
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a href="#menu" class="nav-link nav-link-custom">
-                        <i class="bi bi-grid me-1"></i> Menú
+                        <i class="bi bi-grid me-1"></i> Men\u00fa
                     </a>
                 </li>
                 <li class="nav-item">
@@ -23,6 +27,7 @@
                 </li>
             </ul>
 
+            <!-- Auth Buttons -->
             <div class="d-flex align-items-center gap-2 auth-buttons-mobile">
                 @guest
                     <a href="{{ route('login_prieto') }}" class="btn btn-auth btn-login">
@@ -34,9 +39,11 @@
                 @endguest
 
                 @auth
+                    <!-- Carrito -->
                     <a href="{{ route('cartShow') }}" class="btn btn-cart d-flex align-items-center gap-2 position-relative">
                         <i class="bi bi-bag fs-5"></i>
                         <span class="d-none d-lg-inline fw-semibold">Carrito</span>
+
                         @php
                             $carrito = session('carrito', []);
                             $totalProductos = 0;
@@ -46,19 +53,24 @@
                                 }
                             }
                         @endphp
+
                         @if($totalProductos > 0)
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-cart">
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                  style="font-size: 0.65rem; padding: 0.25rem 0.5rem;">
                                 {{ $totalProductos }}
                                 <span class="visually-hidden">productos</span>
                             </span>
                         @endif
                     </a>
 
+                    <!-- User Dropdown -->
                     <div class="dropdown">
-                        <button class="btn btn-auth btn-register dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-auth btn-register dropdown-toggle d-flex align-items-center gap-2"
+                                type="button" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle fs-5"></i>
                             <span class="d-none d-lg-inline">{{ Str::limit(auth()->user()->name, 12) }}</span>
                         </button>
+
                         <ul class="dropdown-menu dropdown-menu-end mt-2">
                             <li>
                                 <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('ordersShow') }}">
@@ -69,7 +81,9 @@
                             @if(auth()->user()->isAdmin())
                                 <li><hr class="dropdown-divider"></li>
                                 <li class="px-3 py-1">
-                                    <small class="text-muted text-uppercase admin-label">Admin</small>
+                                    <small class="text-muted text-uppercase" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;">
+                                        Admin
+                                    </small>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('admin.offers.index') }}">
