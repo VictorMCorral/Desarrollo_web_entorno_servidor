@@ -8,7 +8,7 @@
             <i class="bi bi-brightness-high-fill me-1"></i>
             Nuestra Selección
         </span>
-        <h1 class="main-title mt-4">Menú del Día</h1>
+        <h1 class="main-title mt-4">Ofertas disponibles</h1>
         <p class="text-muted fs-6">Selecciona una fecha y descubre platos únicos</p>
     </div>
 

@@ -76,7 +76,7 @@
                                             </form>
                                         </div>
 
-                                        <form method="POST" action="{{ route('cartRemove', $producto->id) }}" class="ms-3">
+                                        <form method="POST" action="{{ route('cartRemove', $productOffer->id) }}" class="ms-3">
                                             @csrf
                                             @method("DELETE")
                                             <button type="submit" class="btn btn-link text-danger p-1" title="Eliminar del carrito">
@@ -99,7 +99,7 @@
 
         <!-- Sidebar de Resumen -->
         <div class="col-lg-4">
-            <div class="summary-card">
+            <div class="summary-card ">
                 <h4 class="fw-bold mb-4">
                     <i class="bi bi-file-earmark-check text-primary me-2"></i>
                     Resumen
@@ -153,14 +153,14 @@
 
     @else
     <!-- Estado Vacío Innovador -->
-    <div class="row justify-content-center py-5">
-        <div class="col-lg-6 text-center">
+    <div class="row justify-content-center py-5 delivery-group-card">
+        <div class="col-lg-6 text-center ">
             <div class="empty-cart-icon shadow-sm" style="background: linear-gradient(135deg, rgba(78, 205, 196, 0.15) 0%, rgba(255, 107, 107, 0.1) 100%); width: 120px; height: 120px; margin: 0 auto 2rem;">
                 <i class="bi bi-bag-x"></i>
             </div>
             <h2 class="fw-bold text-dark">Tu carrito está esperando</h2>
-            <p class="text-muted mb-4 px-lg-5">Parece que aún no has seleccionado ninguna de nuestras ofertas especiales para tus próximas entregas.</p>
-            <a href="/" class="btn btn-confirm px-5">
+            <p class="text-muted mb-4 px-lg-5 ">Parece que aún no has seleccionado ninguna de nuestras ofertas especiales para tus próximas entregas.</p>
+            <a href="/" class="btn btn-confirm px-5 fw-bold text-dark" >
                 Explorar Menú de Hoy
             </a>
         </div>

@@ -63,19 +63,25 @@ class cartController extends Controller
         }
 
         session()->put("carrito", $carrito);
-
-        return redirect()->route("cartShow");
+        return redirect()->intended('/');
     }
 
-    public function cartRemove($productID)
+    public function cartRemove($productOfferId)
     {
-        $carrito = session("carrito", []);
-        if (isset($carrito[$productID])) {
-            unset($carrito[$productID]);
-            error_log("Producto eliminado => " . $productID);
-        } else {
-            error_log("No deberia no estar");
+        $carrito = session()->get("carrito", []);
+        $productOffer = ProductOffer::findOrFail($productOfferId);
+        $offerId = $productOffer->offer_id;
+
+        if (isset($carrito[$offerId])) {
+            if (isset($carrito[$offerId][$productOfferId])) {
+                unset($carrito[$offerId][$productOfferId]);
+            }
+
+            if (count($carrito[$offerId]) === 0) {
+                unset($carrito[$offerId]);
+            }
         }
+
         session()->put("carrito", $carrito);
 
         return redirect()->route("cartShow");
@@ -149,6 +155,6 @@ class cartController extends Controller
 
         $this->cartClear();
 
-        return redirect()->route("home_prieto");
+        return redirect()->intended('/');
     }
 }
