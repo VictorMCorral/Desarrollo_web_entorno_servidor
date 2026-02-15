@@ -63,7 +63,7 @@
                                 </span>
 
                                 @auth
-                                <form method="POST" action="{{ route('cartAdd', $productOffer->product->id) }}" class="m-0">
+                                <form method="POST" action="{{ route('cartAdd', $productOffer->id) }}" class="m-0">
                                     @csrf
                                     <button type="submit" class="btn-add-cart">
                                         <i class="bi bi-plus-lg"></i>

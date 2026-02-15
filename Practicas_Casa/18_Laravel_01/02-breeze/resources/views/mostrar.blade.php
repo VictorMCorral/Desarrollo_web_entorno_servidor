@@ -2,6 +2,27 @@
 
 @section("content")
 <div class="container section-spacing">
+    @if(session('success'))
+    <div class="alert alert-dismissible fade show mb-5" role="alert" id="flashMessage" style="background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(78, 205, 196, 0.25); border-radius: var(--radius-lg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); backdrop-filter: blur(10px); padding: 1.5rem;">
+        <div style="color: #15803d; font-weight: 600; display: flex; align-items: center; justify-content: space-between;">
+            <span>
+                <i class="bi bi-check-circle-fill me-2" style="font-size: 1.3rem;"></i>
+                {{ session('success') }}
+            </span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => {
+            const alert = document.getElementById('flashMessage');
+            if (alert) {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }
+        }, 3000);
+    </script>
+    @endif
+
     <!-- Header Section con Gradiente -->
     <div class="page-hero text-center mb-5 fade-in">
         <span class="badge badge-soft-primary">
@@ -66,7 +87,7 @@
                                 </span>
 
                                 @auth
-                                <form method="POST" action="{{ route('cartAdd', $productOffer->product->id) }}" class="m-0">
+                                <form method="POST" action="{{ route('cartAdd', $productOffer->id) }}" class="m-0">
                                     @csrf
                                     <button type="submit" class="btn-add-cart">
                                         <i class="bi bi-plus-lg"></i>

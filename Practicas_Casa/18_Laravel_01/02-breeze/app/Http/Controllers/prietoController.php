@@ -20,6 +20,7 @@ class PrietoController extends Controller
     public function mostrar()
     {
         $offers = $this->offers();
+
         return view("mostrar", ["offers" => $offers]);
     }
 
@@ -101,8 +102,7 @@ class PrietoController extends Controller
 
     public function offers()
     {
-        return Offer::with("productsOffer.product")->where("date_delivery", ">", now())->get();
-        //->where("datetime_limit", ">", now())
+        return Offer::with("productsOffer.product")->where("date_delivery", ">=", today())->get();
     }
 
 

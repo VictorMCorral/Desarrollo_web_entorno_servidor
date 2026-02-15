@@ -12,8 +12,30 @@
         <p class="text-muted">Revisa tus compras anteriores y el detalle de tus platos.</p>
     </div>
 
+    <!-- Filtro por fechas -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <div class="d-flex gap-3 align-items-end">
+                <div class="flex-grow-1">
+                    <label class="form-label fw-bold text-dark mb-2">Filtrar por fecha</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border" style="border-color: var(--border-light) !important;">
+                            <i class="bi bi-calendar-event" style="color: var(--primary);"></i>
+                        </span>
+                        <input type="date" id="filterDate" class="form-control border" style="border-color: var(--border-light) !important; background: #ffffff; font-weight: 500; color: var(--text-primary);" placeholder="Selecciona una fecha">
+                    </div>
+                </div>
+                <button type="button" class="btn" id="clearFilter" title="Limpiar filtro" style="background: var(--bg-app); border: 1px solid var(--border-light); color: var(--text-primary); font-weight: 600; border-radius: var(--radius-md);">
+                    <i class="bi bi-x-circle me-1"></i> Limpiar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de pedidos -->
+    <div id="ordersContainer">
     @foreach($orders as $order)
-    <div class="row justify-content-center mb-4">
+    <div class="row justify-content-center mb-4" data-order-date="{{ \Carbon\Carbon::parse($order->created_at)->format('Y-m-d') }}">
         <div class="col-lg-10">
             <div class="order-card">
                 <!-- Cabecera: ID y Fecha -->
@@ -31,6 +53,19 @@
                     </div>
                 </div>
 
+                <!-- Información de entrega -->
+                @if($order->products->first() && $order->products->first()->offer)
+                <div style="background: rgba(78, 205, 196, 0.08); padding: 1rem; border-top: 1px solid rgba(78, 205, 196, 0.2); border-bottom: 1px solid rgba(78, 205, 196, 0.2);">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-truck-flatbed" style="color: var(--primary); font-size: 1.1rem;"></i>
+                        <div>
+                            <span class="small text-muted d-block fw-bold">Fecha de entrega:</span>
+                            <span class="fw-bold">{{ $order->products->first()->offer->date_delivery->format('d/m/Y') }} <span class="mx-2 text-muted">|</span> {{ $order->products->first()->offer->time_delivery }}</span>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
                 <!-- Cuerpo: Tabla de productos -->
                 <div style="padding: 0;">
                     <div class="table-responsive">
@@ -46,6 +81,7 @@
                             <tbody>
 
                                 @foreach($order->products as $item)
+                                @if($item->product)
                                 <tr style="border-bottom: 1px solid rgba(78, 205, 196, 0.1);">
                                     <td class="ps-5 py-4 product-name-cell">
                                         {{ $item->product->name }}
@@ -60,6 +96,22 @@
                                         {{ number_format($item->quantity * $item->product->price, 2) }} €
                                     </td>
                                 </tr>
+                                @else
+                                <tr style="border-bottom: 1px solid rgba(78, 205, 196, 0.1);">
+                                    <td class="ps-5 py-4 product-name-cell text-muted">
+                                        <em>Producto no disponible (ID: {{ $item->product_id }})</em>
+                                    </td>
+                                    <td class="text-center py-4">
+                                        <span class="qty-badge">{{ $item->quantity }}</span>
+                                    </td>
+                                    <td class="text-center text-muted py-4">
+                                        N/A
+                                    </td>
+                                    <td class="text-end pe-5 fw-bold py-4">
+                                        N/A
+                                    </td>
+                                </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -77,6 +129,7 @@
         </div>
     </div>
     @endforeach
+    </div>
 
     @if($orders->isEmpty())
     <div class="text-center py-5">
@@ -89,4 +142,31 @@
     </div>
     @endif
 </div>
+
+<script>
+    const filterInput = document.getElementById('filterDate');
+    const clearBtn = document.getElementById('clearFilter');
+    const ordersContainer = document.getElementById('ordersContainer');
+    const orderRows = ordersContainer.querySelectorAll('.row[data-order-date]');
+
+    const filterByDate = () => {
+        const selectedDate = filterInput.value;
+
+        orderRows.forEach(row => {
+            const orderDate = row.getAttribute('data-order-date');
+            if (!selectedDate || orderDate === selectedDate) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    };
+
+    filterInput.addEventListener('change', filterByDate);
+
+    clearBtn.addEventListener('click', () => {
+        filterInput.value = '';
+        orderRows.forEach(row => row.style.display = '');
+    });
+</script>
 @endsection

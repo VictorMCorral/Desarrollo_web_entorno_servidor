@@ -22,9 +22,6 @@
                 <div class="sticky-panel">
                     <div class="config-suite">
                         <div class="d-flex align-items-center gap-3 mb-4">
-                            <div class="bg-primary bg-opacity-20 p-3 rounded-4">
-                                <i class="bi bi-megaphone-fill text-primary fs-4"></i>
-                            </div>
                             <h4 class="fw-bold m-0">Parámetros</h4>
                         </div>
 
@@ -38,7 +35,7 @@
                         <div class="mb-4">
                             <label class="form-dark-label">Ventana horaria</label>
                             <div class="input-group">
-                                <input type="time" class="form-control" name="time_delivery" required>
+                                <input type="text" class="form-control" name="time_delivery" placeholder="Ej: 10:30-12:00" required>
                             </div>
                         </div>
 
@@ -63,9 +60,21 @@
                         <h5 class="fw-bold m-0 text-dark">Inventario Disponible</h5>
                         <span class="badge admin-badge">{{ $productos->count() }} Items</span>
                     </div>
+                    
+                    <div class="p-4 border-bottom bg-light">
+                        <label class="form-label fw-bold text-dark mb-2">
+                            <i class="bi bi-search me-2"></i>Buscar productos
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border" style="border-color: var(--border-light) !important;">
+                                <i class="bi bi-search" style="color: var(--primary);"></i>
+                            </span>
+                            <input type="text" id="searchProducts" class="form-control border" style="border-color: var(--border-light) !important; background: #ffffff; font-weight: 500; color: var(--text-primary);" placeholder="Buscar por nombre..." autocomplete="off">
+                        </div>
+                    </div>
 
                     <div class="table-responsive">
-                        <table class="table mb-0">
+                        <table id="productsTable" class="table mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-center">Incluir</th>
@@ -91,8 +100,8 @@
                                             </div>
                                             @endif
                                             <div>
-                                                <span class="fw-bold text-dark d-block">{{ $producto->name }}</span>
-                                                <span class="text-muted small">ID: #{{ $producto->id }}</span>
+                                                <span class="fw-bold text-dark d-block product-name">{{ $producto->name }}</span>
+                                                <span class="text-muted small product-desc">ID: #{{ $producto->id }}</span>
                                             </div>
                                         </div>
                                     </td>

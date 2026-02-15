@@ -10,7 +10,7 @@ use App\Models\ProductOffer;
 use App\Models\ProductOrder;
 use Illuminate\Support\Facades\Auth;
 
-//TODO meter buscadores en productos de crear oferta, buscador en fechas de pedidos, linkx cabecera, nuevo offerta = nuevo producto, mensajes flash, borrar linea en carrito, agregar producto a carrito te lleve al home (flash)
+
 class cartController extends Controller
 {
     public function cartShow()
@@ -41,29 +41,30 @@ class cartController extends Controller
 
     public function cartAdd($productOfferId)
     {
-        //session()->forget("carrito");
         $carrito = session()->get("carrito", []);
-        $productOffer = ProductOffer::findOrFail($productOfferId);
+
+        // 1. Obtenemos la relación producto-oferta
+        $productOffer = ProductOffer::with('product')->findOrFail($productOfferId);
         $offerId = $productOffer->offer_id;
+        $productName = $productOffer->product->name;
 
-        if (isset($carrito[$offerId])) {
-            if (isset($carrito[$offerId][$productOfferId])) {
-                $carrito[$offerId][$productOfferId]++;
-            } else {
-
-                $carrito[$offerId][$productOfferId] = 1;
-                error_log("NO reconoce que existe 1");
-            }
-        } else {
-
-            error_log("NO reconoce que existe LA OFERTA");
-            $nuevoProducto = [$productOfferId => 1];
-
-            $carrito[$offerId] = $nuevoProducto;
+        // 2. Aseguramos que el índice de la oferta exista en el carrito
+        if (!isset($carrito[$offerId])) {
+            $carrito[$offerId] = [];
         }
 
+        // 3. Añadimos o incrementamos el producto específico de esa oferta
+        if (isset($carrito[$offerId][$productOfferId])) {
+            $carrito[$offerId][$productOfferId]++;
+        } else {
+            $carrito[$offerId][$productOfferId] = 1;
+        }
+
+        // 4. Guardamos y enviamos feedback
         session()->put("carrito", $carrito);
-        return redirect()->intended('/');
+        session()->flash('success', "✓ {$productName} añadido correctamente");
+
+        return redirect()->back(); // Mejor volver atrás que a la home siempre
     }
 
     public function cartRemove($productOfferId)
@@ -139,12 +140,18 @@ class cartController extends Controller
         ]);
 
         foreach ($carrito as $offerId => $productos) {
-            foreach ($productos as $productId => $cantidad) {
-                $producto = Product::findOrFail($productId);
+            foreach ($productos as $productOfferId => $cantidad) {
+                $productOffer = ProductOffer::findOrFail($productOfferId);
+                $producto = $productOffer->product;
                 $total += $producto->price * $cantidad;
+
+                // Convertir offerId a entero para asegurar que se guarda correctamente
+                $offerId = (int) $offerId;
+
                 ProductOrder::create([
                     "order_id" => $order->id,
                     "product_id" => $producto->id,
+                    "offer_id" => $offerId,
                     "quantity" => $cantidad
                 ]);
             }

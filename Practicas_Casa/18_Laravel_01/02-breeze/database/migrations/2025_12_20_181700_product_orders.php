@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('product_offers');
             $table->integer('quantity')->default(1);
             $table->timestamps();
-            $table->unique(['order_id', 'product_id']); // evita duplicados
         });
 
     }

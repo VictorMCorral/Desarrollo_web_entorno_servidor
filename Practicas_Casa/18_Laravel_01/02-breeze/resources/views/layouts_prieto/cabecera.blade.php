@@ -72,6 +72,11 @@
                                     <small class="text-muted text-uppercase admin-label">Admin</small>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('admin.orders.index') }}">
+                                        <i class="bi bi-receipt"></i> Pedidos
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('admin.offers.index') }}">
                                         <i class="bi bi-tag"></i> Ofertas
                                     </a>

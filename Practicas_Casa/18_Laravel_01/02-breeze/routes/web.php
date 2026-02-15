@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\offerController;
 use App\Http\Controllers\admin\productController;
 use App\Http\Controllers\cartController;
@@ -43,6 +44,7 @@ Route::middleware(["auth", "isAdmin"])
     ->name("admin.")
     ->group(function (){
         //RUTAS ADMINISTRADOR
+        Route::get("orders", [AdminController::class, 'ordersIndex'])->name("orders.index");
         Route::resource("products", productController::class);
         Route::resource("offers", offerController::class);
     });

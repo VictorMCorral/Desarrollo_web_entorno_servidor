@@ -20,4 +20,9 @@ class Offer extends Model
     {
         return $this->hasMany(ProductOffer::class);
     }
+
+    public function productOrders()
+    {
+        return $this->hasMany(ProductOrder::class);
+    }
 }
