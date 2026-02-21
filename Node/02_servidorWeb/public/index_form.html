@@ -9,7 +9,18 @@
 <body>
     <h1>HOLA node.js</h1>
     <form action="/contenido" method="post">
-        <input type="text" value="Esto es una prueba" name="prueba" id="prueba">
+        <label for="nombre">
+            Introduce el nombre:
+        </label>
+        <br>
+        <input type="text" name="prueba" id="nombre">
+        <br>
+        <label for="email">
+            Introduce el email:
+        </label>
+        <br>
+        <input type="text" name="email" id="email">
+        <br>
         <input type="submit" value="Enviar Datos">
     </form>
 </body>

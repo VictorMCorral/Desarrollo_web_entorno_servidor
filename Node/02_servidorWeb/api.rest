@@ -1,0 +1,10 @@
+GET http://127.0.0.1:3000/api/users
+
+###
+POST http://127.0.0.1:3000/api/users
+Content-Type: application/json
+
+{
+    "id": 6, 
+    "name":"Mikel" 
+}

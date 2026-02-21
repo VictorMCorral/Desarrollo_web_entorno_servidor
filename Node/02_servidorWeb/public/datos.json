@@ -1,0 +1,26 @@
+[
+    {
+        "precio": 5,
+        "nombre": "Televisor"
+    },
+    {
+        "precio": 12.52,
+        "nombre": "Telefono"
+    },
+    {
+        "precio": 6.98,
+        "nombre": "Wii"
+    },
+    {
+        "precio": 2.58,
+        "nombre": "Ordenador"
+    },
+    {
+        "precio": 3.50,
+        "nombre": "Portatil"
+    },
+    {
+        "precio": 2.0,
+        "nombre": "Xbox"
+    }
+]
