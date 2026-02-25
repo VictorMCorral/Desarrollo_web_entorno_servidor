@@ -1,0 +1,27 @@
+body{
+    background-image: url("./fondo.png");
+    color: white;
+}
+
+label{
+    color: black;
+    background-color: white;
+    font-size: 5ch;
+}
+
+h1, h2{
+    background-color: brown;
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+}
+
+input{
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    font-size: 5ch;
+}

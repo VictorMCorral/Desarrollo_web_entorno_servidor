@@ -1,0 +1,30 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: mi_base_de_datos
+      MYSQL_USER: usuario_js
+      MYSQL_PASSWORD: password_seguro
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  workbench:
+    image: lscr.io/linuxserver/mysql-workbench:latest
+    container_name: mysql_workbench
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    ports:
+      - "3000:3000" # Acceso vía navegador: http://localhost:3000
+    depends_on:
+      - db
+
+volumes:
+  db_data:

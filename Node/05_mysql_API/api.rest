@@ -1,0 +1,26 @@
+POST http://localhost:3000/users
+Content-Type: application/json
+
+  {
+    "emple_no": 9,
+    "apellido": "Navarro",
+    "oficio": "Comercial",
+    "dept_no": 30
+  }
+###
+GET http://localhost:3000/users
+
+###
+
+PUT  http://localhost:3000/users/9
+Content-Type: application/json
+
+  {
+    "emple_no": 9,
+    "apellido": "CAMBIO",
+    "oficio": "CAMBIO TAMBIEN",
+    "dept_no": 30
+  }
+
+###
+DELETE http://localhost:3000/users/9
