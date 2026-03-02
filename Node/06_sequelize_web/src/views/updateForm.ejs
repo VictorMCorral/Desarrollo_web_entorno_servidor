@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/public/css/styles.css" />
+    </head>
+
+    <body>
+        <h1>Actualizar Empleados</h1>
+
+        <form action="/depart/update/<%= depart.depart_no %>" method="post">
+            <label for="dnombre">Nombre</label>
+            <input
+                type="text"
+                name="dnombre"
+                id="dnombre"
+                value="<%=depart.dnombre%>"
+            />
+            <label for="loc">Ubicacion</label>
+            <input type="text" name="loc" id="loc" value="<%=depart.loc%>" />
+            <button type="submit">Enviar</button>
+        </form>
+    </body>
+</html>

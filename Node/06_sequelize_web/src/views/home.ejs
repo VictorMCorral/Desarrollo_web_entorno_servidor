@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <h1>Empleados</h1>
+    
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Ubicacion</th>
+        </tr>
+        <% for( let i = 0; i < emple.length; i++ ) { %>
+            <tr>
+                <td>
+                    <%= emple[i].emple_no %>
+                </td>
+                <td>
+                    <%= emple[i].apellido %>
+                </td>
+                <td>
+                    <%= emple[i].oficio %>
+                </td>
+                <td>
+                    <a href="/emple/updateForm/<%= emmple[i].emple_no %>">Editar</a>
+                </td>
+                <td>
+                    <a href="/emple/delete/<%= emple[i].emple_no %>">Eliminar</a>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+<a href="/emple/createForm">Crear un departamento</a>
+</body>
+
+</html>
