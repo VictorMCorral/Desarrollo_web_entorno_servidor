@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+    </head>
+
+    <body>
+        <h1>Crear Empleados</h1>
+
+        <form action="/emple/insert" method="post">
+            <label for="emple_no">ID</label>
+            <input type="text" name="emple_no" id="emple_no" />
+            <label for="apellido">Apellido</label>
+            <input type="text" name="apellido" id="apellido" />
+            <label for="oficio">Oficio</label>
+            <input type="text" name="oficio" id="oficio" />
+            <label for="dept_no">Departamento</label>
+            <input type="text" name="dept_no" id="dept_no" />
+            <button type="submit">Enviar</button>
+        </form>
+    </body>
+</html>

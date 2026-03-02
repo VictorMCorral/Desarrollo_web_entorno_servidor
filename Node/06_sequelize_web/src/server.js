@@ -7,10 +7,10 @@ const routes = require("./routes/routes");
 
 const server = http.createServer((req, res) => {
 
-    if(req.url.startsWith("/public")) {
+    if (req.url.startsWith("/public")) {
         const filePath = path.join(__dirname, req.url);
-        fs.readFileSync(filePath, (err, data) =>{
-            if (err){
+        fs.readFileSync(filePath, (err, data) => {
+            if (err) {
                 res.writeHead(404);
                 return res.end("File not foud");
             }
@@ -22,12 +22,9 @@ const server = http.createServer((req, res) => {
 
     const partes = req.url.split("/");
 
-    if(partes[1] === "users" && partes[2]){
-        const id = partes[2];
-        routes.gestionarRutasDinamicas(req, res, id);
+    console.log(req.url);
 
-    } else if(partes[1] === "users"){
-
+    if (partes[1] === "emple" || partes[1] === "emples") {
         routes.gestionarRutas(req, res);
     } else {
         console.log("Ruta erronea")
@@ -35,6 +32,6 @@ const server = http.createServer((req, res) => {
 
 })
 
-server.listen(3000, ()=> {
-    console.log("Servidor en http://localhost:3000")
+server.listen(3030, () => {
+    console.log("Servidor en http://localhost:3030")
 })

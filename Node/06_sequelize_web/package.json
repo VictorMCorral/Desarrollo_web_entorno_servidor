@@ -13,7 +13,10 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@sequelize/core": "^7.0.0-alpha.42",
     "dotenv": "^17.3.1",
+    "ejs": "^4.0.1",
+    "mysql2": "^3.18.1",
     "sequelize": "^6.37.7"
   }
 }

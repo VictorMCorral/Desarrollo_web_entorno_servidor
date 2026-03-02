@@ -1,9 +1,16 @@
-const database = require("../config/database");
+const Emple = require("../models/emple.model");
+
 //TODO modificar consultas para sequelize
 async function getEmples() {
     try {
-        const [users] = await database.execute("SELECT * FROM emple");
-        return users;
+        const usersArray = []
+        const users = await Emple.findAll();
+
+        users.forEach(emple => {
+            // console.log(emple.dataValues)
+            usersArray.push(emple.dataValues);
+        });
+        return usersArray;
     } catch (error) {
         console.error("Error en la consulta:", error)
     }
@@ -11,43 +18,47 @@ async function getEmples() {
 
 async function addEmple(newEmple) {
     try {
-        await database.execute(
-            "INSERT INTO emple (emple_no, apellido, oficio, dept_no) VALUES (?, ?, ?, ?)",
-            [newEmple.emple_no, newEmple.apellido, newEmple.oficio, newEmple.dept_no]);
-        return true;
+        const [rows] = await Emple.create({
+            emple_no: newEmple.emple_no,
+            apellido: newEmple.apellido,
+            oficio: newEmple.oficio,
+            dept_no: newEmple.dept_no
+        })
+        return rows;
     } catch (error) {
         console.error("Error en la consulta:", error)
-        return false;
+        return null;
     }
 }
 
 async function updateEmple(newEmple) {
     try {
-        await database.execute(
-            "UPDATE emple SET apellido=?, oficio=?, dept_no=? WHERE emple_no=?",
-            [newEmple.apellido, newEmple.oficio, newEmple.dept_no, newEmple.emple_no]);
-        return true;
+        const [rows] = await update({
+            apellido: newEmple.apellido,
+            oficio: newEmple.oficio,
+            dept_no: newEmple.dept_no
+        }, {
+            where: { emple_no: newEmple.emple_no}
+        });
+        return rows;
     } catch (error) {
         console.error("Error en la consulta:", error)
-        return false;
+        return null;
     }
 }
 
-async function deleteEmple(emple_no) {
+async function deleteEmple(emple_noDelete) {
     try {
-        await database.execute(
-            "DELETE FROM emple WHERE emple_no = ?",
-            [emple_no]);
-        return true;
+        const [rows] = await Emple.destroy({
+            where: {emple_no: emple_noDelete}
+        })
+        return rows;
     } catch (error) {
         console.error("Error en la consulta:", error)
-        return false;
+        return null;
     }
 
 }
-
-
-
 
 module.exports = {
     getEmples,

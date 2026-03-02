@@ -1,30 +1,26 @@
-const fs = require('fs');
-const path = require('path');
-
-const database = require("../config/database");
-const repository = require("../repositories/emple.repository");
+const db = require("../repositories/emple.repository");
 
 async function getEmples() {
-    return repository.getEmples();
+    return await db.getEmples();
 }
 
-async function addEmple(newEmple) {
-    return repository.addEmple(newEmple);
+async function addEmple(dnombre, loc) {
+    return await db.addEmple(dnombre, loc);
+}
+async function getEmple(Emple_no) {
+    return await db.getEmple(Emple_no);
+}
+async function editEmple(Emple_no, dnombre, loc) {
+    return await db.editEmple(Emple_no, dnombre, loc);
+}
+async function deleteEmple(Emple_no) {
+    return await db.deleteEmple(Emple_no);
 }
 
-async function updateEmple(newEmple) {
-    return repository.updateEmple(newEmple);
-}
 
-async function deleteEmple(emple_no) {
-    return repository.deleteEmple(emple_no);
-}
 
 
 
 module.exports = {
-    getEmples,
-    addEmple,
-    updateEmple,
-    deleteEmple
+    getEmples, addEmple, getEmple, editEmple, deleteEmple
 };
