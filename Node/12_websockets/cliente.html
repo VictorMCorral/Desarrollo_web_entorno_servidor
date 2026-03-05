@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+</head>
+
+<body>
+    <h1>Cliente WebSocket</h1>
+    
+    <form id="conexion">
+        <input type="text" id="nameUser" placeholder="Tu nombre..." required>
+        <button type="submit" id="btnConectar">Conectar</button>
+    </form>
+
+    <br><br>
+
+    <form id="messageForm">
+        <input type="text" id="messageInput" placeholder="Escribe un mensaje..." >
+        <button type="submit" id="btnEnviar">Enviar</button>
+    </form>
+
+    <div id="messages"></div>
+
+    <script>
+        let socket = null;
+
+        const messagesContainer = document.getElementById("messages");
+        const messageForm = document.getElementById("messageForm");
+        const messageInput = document.getElementById("messageInput");
+        const btnEnviar = document.getElementById("btnEnviar");
+        
+        const conectForm = document.getElementById("conexion");
+        const nameUserInput = document.getElementById("nameUser");
+        const btnConectar = document.getElementById("btnConectar");
+
+        conectForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            socket = new WebSocket("ws://localhost:8000");
+
+            socket.onopen = function (event) {
+                console.log("Conectado al servidor WebSocket");
+
+                socket.send(`Name:${nameUserInput.value}`);
+            };
+
+            socket.onmessage = function (event) {
+                const nuevoMsg = document.createElement("div");
+                nuevoMsg.textContent = `${event.data}`;
+                messagesContainer.appendChild(nuevoMsg);
+            };
+
+            socket.onerror = function (event) {
+                console.error("Error en la conexion WebSocket:", event);
+                alert("No se pudo conectar al servidor.");
+            };
+
+            socket.onclose = function (event) {
+                console.log("Conexion cerrada:", event);
+            };
+        });
+
+        messageForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                const message = messageInput.value;
+                socket.send(message);
+                messageInput.value = "";
+            } else {
+                alert("No hay conexión activa.");
+            }
+        });
+
+    </script>
+</body>
+
+</html>

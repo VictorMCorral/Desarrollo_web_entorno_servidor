@@ -8,11 +8,14 @@
 <body>
     <h1>Hora actualizada desde el servidor: </h1>
     <div id="time"></div>
+    <div id="random"></div>
     <script>
         const eventSource = new EventSource("http://localhost:3000/SSE");
 
         eventSource.onmessage = (event) => {
-            document.getElementById("time").textContent = event.data;
+            const datos = event.data.split("-");
+            document.getElementById("time").textContent = datos[0];
+            document.getElementById("random").textContent = datos[1];
         };
 
         eventSource.onerror = function (event) {
