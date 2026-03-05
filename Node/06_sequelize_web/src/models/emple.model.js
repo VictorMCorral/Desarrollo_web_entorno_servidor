@@ -3,6 +3,7 @@ const { Sequelize } = require("sequelize");
 
 const Emple = sequelize.define('emple', {
     emple_no: {
+        field: 'EMPLE_no',
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true
@@ -16,10 +17,12 @@ const Emple = sequelize.define('emple', {
         allowNull: true
     },
     dept_no : {
+        field: 'DEPART_no',
         type: Sequelize.INTEGER,
         allowNull: true
     }
 }, {
+    tableName: 'emple',
     freezeTableName: true,
     timestamps: false
 });

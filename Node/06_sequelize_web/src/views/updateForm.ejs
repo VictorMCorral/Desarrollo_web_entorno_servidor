@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title><%= title %></title>
-        <link rel="stylesheet" href="/public/css/styles.css" />
-    </head>
 
-    <body>
-        <h1>Actualizar Empleados</h1>
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
 
-        <form action="/depart/update/<%= depart.depart_no %>" method="post">
-            <label for="dnombre">Nombre</label>
-            <input
-                type="text"
-                name="dnombre"
-                id="dnombre"
-                value="<%=depart.dnombre%>"
-            />
-            <label for="loc">Ubicacion</label>
-            <input type="text" name="loc" id="loc" value="<%=depart.loc%>" />
-            <button type="submit">Enviar</button>
-        </form>
-    </body>
+<body>
+    <h1>Actualizar Empleados</h1>
+
+    <form action="/emple/update/<%= emple.emple_no %>" method="POST">
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" value="<%= emple.apellido %>" required><br>
+
+        <label for="oficio">Oficio:</label>
+        <input type="text" id="oficio" name="oficio" value="<%= emple.oficio %>" required><br>
+
+        <button type="submit">Actualizar</button>
+</body>
+
 </html>

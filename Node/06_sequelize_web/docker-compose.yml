@@ -3,15 +3,20 @@ services:
     image: mysql:8.0
     container_name: mysql_db
     restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: mi_base_de_datos
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: empledepart
       MYSQL_USER: usuario_js
-      MYSQL_PASSWORD: password_seguro
+      MYSQL_PASSWORD: seguro
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+      # Importación del archivo SQL
+      - ./databases/:/docker-entrypoint-initdb.d/
+    # Opcional: Si quieres que importe todo lo que haya en esa carpeta:
+    # - ./databases:/docker-entrypoint-initdb.d
 
   workbench:
     image: lscr.io/linuxserver/mysql-workbench:latest
@@ -22,7 +27,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     ports:
-      - "3000:3000" # Acceso vía navegador: http://localhost:3000
+      - "3000:3000"
     depends_on:
       - db
 

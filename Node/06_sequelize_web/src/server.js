@@ -22,13 +22,11 @@ const server = http.createServer((req, res) => {
 
     const partes = req.url.split("/");
 
-    console.log(req.url);
+    console.log(partes);
 
-    if (partes[1] === "emple" || partes[1] === "emples") {
-        routes.gestionarRutas(req, res);
-    } else {
-        console.log("Ruta erronea")
-    }
+
+    routes.gestionarRutas(req, res);
+
 
 })
 

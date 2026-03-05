@@ -3,10 +3,10 @@ const pageController = require('../controllers/controller');
 function gestionarRutas(req, res) {
 
     const [baseURL, id] = optenerDinamica(req)
-    console.log(baseURL + " ==> " + id);
+    console.log("==============" + baseURL + " ==> " + id);
 
 
-    if (req.method === 'GET' && req.url === '/emples') {
+    if (req.method === 'GET' && req.url === '/') {
         return pageController.home(req, res);
     }
     if (req.method === 'GET' && req.url === '/emple/createForm') {
@@ -22,6 +22,7 @@ function gestionarRutas(req, res) {
         return pageController.update(req, res, id);
     }
     if (req.method === 'GET' && baseURL === '/emple/delete' && id) {
+        console.log("Delete id: " + id);
         return pageController.deleteemple(req, res, id);
     }
 

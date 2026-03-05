@@ -4,14 +4,14 @@ async function getEmples() {
     return await db.getEmples();
 }
 
-async function addEmple(dnombre, loc) {
-    return await db.addEmple(dnombre, loc);
+async function addEmple(newEmple) {
+    return await db.addEmple(newEmple);
 }
 async function getEmple(Emple_no) {
     return await db.getEmple(Emple_no);
 }
-async function editEmple(Emple_no, dnombre, loc) {
-    return await db.editEmple(Emple_no, dnombre, loc);
+async function editEmple(apellido, oficio, Emple_no) {
+    return await db.editEmple({ apellido, oficio, emple_no: Emple_no });
 }
 async function deleteEmple(Emple_no) {
     return await db.deleteEmple(Emple_no);

@@ -16,13 +16,24 @@ async function getEmples() {
     }
 }
 
+async function getEmple(emple_no) {
+    try {
+        const emple = await Emple.findAll({
+            where: { emple_no: emple_no }
+        });
+        return emple;
+    } catch (error) {
+        console.error("Error en la consulta:", error)
+    }
+}
+
 async function addEmple(newEmple) {
     try {
         const [rows] = await Emple.create({
-            emple_no: newEmple.emple_no,
+            emple_no: Number(newEmple.emple_no),
             apellido: newEmple.apellido,
             oficio: newEmple.oficio,
-            dept_no: newEmple.dept_no
+            dept_no: Number(newEmple.dept_no)
         })
         return rows;
     } catch (error) {
@@ -31,12 +42,11 @@ async function addEmple(newEmple) {
     }
 }
 
-async function updateEmple(newEmple) {
+async function editEmple(newEmple) {
     try {
-        const [rows] = await update({
+        const [rows] = await Emple.update({
             apellido: newEmple.apellido,
             oficio: newEmple.oficio,
-            dept_no: newEmple.dept_no
         }, {
             where: { emple_no: newEmple.emple_no}
         });
@@ -49,9 +59,10 @@ async function updateEmple(newEmple) {
 
 async function deleteEmple(emple_noDelete) {
     try {
-        const [rows] = await Emple.destroy({
+        const rows = await Emple.destroy({
             where: {emple_no: emple_noDelete}
         })
+        console.log("Filas eliminadas: " + rows);
         return rows;
     } catch (error) {
         console.error("Error en la consulta:", error)
@@ -63,6 +74,7 @@ async function deleteEmple(emple_noDelete) {
 module.exports = {
     getEmples,
     addEmple,
-    updateEmple,
+    getEmple,
+    editEmple,
     deleteEmple
 }

@@ -8,22 +8,30 @@ const qs = require("querystring");
 async function home(req, res) {
     const filePath = path.join(__dirname, '../views/home.ejs');
 
-    const emple = await service.getEmples();
+    try {
+        const emple = await service.getEmples();
+        ejs.renderFile(filePath, { title: 'Inicio', emple: emple || [] }, (err, html) => {
+            if (err) {
+                console.error('Error renderizando home.ejs:', err);
+                res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+                return res.end('Error al renderizar la vista de empleados');
+            }
 
-    console.log("CORRECTO", emple)
-    
-    ejs.renderFile(filePath, { title: 'Inicio', emple }, (err, html) => {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        console.log(html);
-        res.end(html);
-    });
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(html);
+        });
+    } catch (error) {
+        console.error('Error consultando empleados:', error);
+        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Error al consultar empleados en la base de datos');
+    }
 }
 
 function createForm(req, res) {
     const filePath = path.join(__dirname, '../views/createForm.ejs');
 
     ejs.renderFile(filePath, { title: "Crear emple" }, (err, html) => {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
         res.end(html);
     });
 }
@@ -46,11 +54,11 @@ function insert(req, res) {
 async function updateForm(req, res, id) {
     const filePath = path.join(__dirname, '../views/updateForm.ejs');
 
-    emple = await service.getemple(id)
+    emple = await service.getEmple(id)
     console.log(emple);
 
     ejs.renderFile(filePath, { title: "Update emple", emple: emple[0] }, (err, html) => {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
         res.end(html);
     });
 }
@@ -64,13 +72,13 @@ function update(req, res, id) {
     req.on('end', async () => {
         const data = Buffer.concat(chunks); // Une varios buffers en uno solo
         const output = qs.parse(data.toString());
-        await service.editemple(id, output.dnombre, output.loc)
+        await service.editEmple(output.apellido, output.oficio, id)
         res.writeHead(301, { Location: "/" })
         res.end();
     });
 }
 async function deleteemple(req, res, id) {
-    await service.deleteemple(id)
+    await service.deleteEmple(id)
 
     res.writeHead(301, { Location: "/" })
     res.end()
