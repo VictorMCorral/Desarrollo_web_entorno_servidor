@@ -22,11 +22,13 @@ const server = http.createServer(async (req, res) => {
         });
         
         const sendEvent = () => {
-            const eventData = `data: ${new Date().toLocaleTimeString()}\n\n`
-            res.write(eventData);
+            const eventData = new Date().toLocaleTimeString();
+            const random = Math.floor(Math.random() * 100);
+            const mensaje = `data: ${eventData}-${random}\n\n`
+            res.write(mensaje);
         };
         
-        const intervalId = setInterval(sendEvent, 2000);
+        const intervalId = setInterval(sendEvent, 3000);
         
         req.on("close", () => {
             clearInterval(intervalId);
